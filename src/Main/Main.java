@@ -5,11 +5,12 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
+import Classes.Customer_Class;
 
 public class Main {
     // Array of tour guides
     // Array of trips
-    // Array of Customers
+    ArrayList<Customer_Class> Customers = new ArrayList<Customer_Class>();     // Array of Customers
     private static String user = "\0"; // admin or index
     private final static Scanner input = new Scanner(System.in);
     private static HashMap<String, String> reservation = new HashMap<String, String>();

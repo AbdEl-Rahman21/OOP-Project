@@ -67,22 +67,14 @@ public class Customer {
     public void setBirth_date(int birth_date) {
         this.birth_date = birth_date;
     }*/
-    // Methods
-    public boolean verfiy_identity (String id , String password)
-    {
-        if (id.equals(this.id)&&password.equals(this.password))
-            return true;
-        else
-            return false;
-    }
-public void dispCustomer (String id)
-{
-    System.out.println(" Customer information :- \n");
-    System.out.println(" Id : "+this.id);
-    System.out.println(" Name : "+this.name);
-    System.out.println(" Email : "+this.email);
-    System.out.println(" Phone : "+this.phone);
-    System.out.println(" Number of trips : "+this.numberOfTrips);
-}
 
+    // Methods
+    public boolean verifyIdentity(String id, String password) {
+        return id.equals(this.id) && password.equals(this.password);
+    }
+
+    public void displayCustomer() {
+        System.out.println("Id: " + id + "\nName: " + name + "\nEmail: " + email + "\nPhone: " + phone);
+        System.out.println("Password: " + password + "\nNumber Of Trips: " + numberOfTrips);
+    }
 }

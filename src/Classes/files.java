@@ -1,4 +1,5 @@
 package Classes;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,19 +16,15 @@ public class files {
         this.customersFile = new File("customer.txt");
     }
 
-    public void writeTo(ArrayList<Customer_Class> cust)
+    public void writeTo(ArrayList<Customer> cust)
     {
         try {
             FileWriter myWriter = new FileWriter("customer.txt");
             for (int i = 0; i < 1; i++){  // number of customers needed
-            myWriter.write(cust.get(i).getCustomer_name() + "\n");
-            myWriter.write( cust.get(i).getCustomer_email()+ "\n");
-            myWriter.write(Integer.toString(cust.get(i).getPassword()));
-            myWriter.write("\n");
-            myWriter.write(Integer.toString(cust.get(i).getBirth_date()));
-            myWriter.write("\n");
-            myWriter.write(Integer.toString(cust.get(i).getCustomer_phone()));
-            myWriter.write("\n");
+            myWriter.write(cust.get(i).getName() + "\n");
+            myWriter.write( cust.get(i).getEmail()+ "\n");
+            myWriter.write(cust.get(i).getPassword() + "\n");
+            myWriter.write(cust.get(i).getPhone()+ "\n");
             }
             myWriter.close();
         } catch (IOException e) {
@@ -36,17 +33,16 @@ public class files {
         }
     }
 
-    public void readFrom(ArrayList<Customer_Class> cust) {
+    public void readFrom(ArrayList<Customer> cust) {
         try {
             File CustObj = new File("customer.txt");
             Scanner myReader = new Scanner(CustObj);
             while (myReader.hasNextLine()) {
                 for (int i = 0; i < 1; i++) {      // number of customers needed
-                    cust.get(i).setCustomer_name( myReader.nextLine());
-                    cust.get(i).setCustomer_email( myReader.nextLine());
-                    cust.get(i).setPassword( Integer.valueOf(myReader.nextLine()));
-                    cust.get(i).setBirth_date( Integer.valueOf(myReader.nextLine()));
-                    cust.get(i).setCustomer_phone( Integer.valueOf(myReader.nextLine()));
+                    cust.get(i).setName( myReader.nextLine());
+                    cust.get(i).setEmail( myReader.nextLine());
+                    cust.get(i).setPassword(myReader.nextLine());
+                    cust.get(i).setPhone( myReader.nextLine());
                 }
 
             }

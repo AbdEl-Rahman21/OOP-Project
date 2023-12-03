@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
-import Classes.Customer_Class;
+import Classes.Customer;
 
 public class Main {
     // Array of tour guides
     // Array of trips
-    ArrayList<Customer_Class> Customers = new ArrayList<Customer_Class>();     // Array of Customers
-    private static String user = "\0"; // admin or index
+    private static ArrayList<Customer> customers = new ArrayList<>();
+    private static int user = -2;  // -1 for admin or customer index
     private final static Scanner input = new Scanner(System.in);
-    private static HashMap<String, String> reservation = new HashMap<String, String>();
+    private static HashMap<String, String> reservation = new HashMap<>();
 
     public static void main(String[] args) {
         try {
@@ -26,33 +26,87 @@ public class Main {
     private static void run() {
         do {
             if (welcomeUser() == 1) {
-                //signUp();
+                signUp();
             } else {
                 logIn();
             }
-        } while (user.equals("\0"));
+        } while (user == -2);
+
+        /*if (user == -1) {
+            handleAdmin();
+        } else {
+
+        }*/
     }
 
-    //private static void signUp() {}
+    private static void signUp() {
+        int id = 0;
+
+        if (!customers.isEmpty()) {
+            id = Integer.parseInt(customers.getLast().getId());
+
+            ++id;
+        }
+
+        System.out.println("Customer ID: " + id);
+
+        System.out.print("Enter name: ");
+        String name = input.next();
+
+        System.out.print("Enter email: ");
+        String email = input.next();
+
+        System.out.print("Enter phone number: ");
+        String phone = input.next();
+
+        String password = getValidPassword();
+
+        customers.add(new Customer(Integer.toString(id), name, email, phone, password));
+
+        user = id;
+    }
+
+    private static String getValidPassword() {
+        String password;
+        boolean valid;
+
+        while (true) {
+            valid = true;
+
+            System.out.print("Enter password: ");
+            password = input.next();
+
+            for (Customer customer: customers) {
+                if (customer.getPassword().equals(password)) {
+                    valid = false;
+
+                    break;
+                }
+            }
+
+            if (valid) {
+                return password;
+            } else {
+                System.out.println("Password already chosen!");
+            }
+        }
+    }
 
     private static void logIn() {
-        String username;
-        String password;
-
-        System.out.print("\nEnter your username: ");
-        username = input.next();
+        System.out.print("\nEnter your id: ");
+        String id = input.next();
 
         System.out.print("Enter your password: ");
-        password = input.next();
+        String password = input.next();
 
-        if (username.equals("admin") && password.equals("admin")) {
-            user = "admin";
+        if (id.equals("admin") && password.equals("admin")) {
+            user = -1;
 
             return;
         } /*else {
-            for (int i = 0; i < customers.size; ++i) {
-                if (username.equals(customer.getId()) && password.equals(customer.getPassword())) {
-                    user = Integer.toString(i);
+            for (Customer customer: customers) {
+                if (customer.verifyIdentity(id, password)) {
+                    user = Integer.parseInt(customer.getId());
 
                     return;
                 }
@@ -82,7 +136,7 @@ public class Main {
                         return number;
                     }
 
-                    System.out.print("Please, enter one of the available options: ");
+                    System.out.print("Please, enter a valid option options: ");
                 }
             } catch (InputMismatchException e) {
                 System.out.print("Please, enter a number: ");

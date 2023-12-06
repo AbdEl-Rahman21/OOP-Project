@@ -10,6 +10,6 @@ public abstract class Trips {
     int pricePerSeat;
     String trip_ID;
     ArrayList<String> Activities;
-    public abstract boolean checkValidity();
+    public abstract boolean checkValidity(int booked_Seats);
     public abstract void displayTrip();
 }

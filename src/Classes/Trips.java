@@ -12,4 +12,5 @@ public abstract class Trips {
     ArrayList<String> Activities;
     public abstract boolean checkValidity(int booked_Seats);
     public abstract void displayTrip();
+
 }

@@ -1,8 +1,8 @@
-package Classes;
+package Account;
 
 public class Customer {
     // Attributes
-    private String id;
+    private final String id;
     private String name;
     private String email;
     private String phone;
@@ -22,10 +22,6 @@ public class Customer {
     // Getters and Setters
     public String getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -74,6 +70,7 @@ public class Customer {
     }
 
     public void displayCustomer() {
+        System.out.println("\nCustomer Information:-");
         System.out.println("Id: " + id + "\nName: " + name + "\nEmail: " + email + "\nPhone: " + phone);
         System.out.println("Password: " + password + "\nNumber Of Trips: " + numberOfTrips);
     }

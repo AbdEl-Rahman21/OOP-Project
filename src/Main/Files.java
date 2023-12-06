@@ -1,18 +1,19 @@
-package Classes;
+package Main;
+
+import Account.Customer;
+
+import java.util.Scanner;
+import java.util.ArrayList;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.concurrent.Callable;
+import java.io.FileNotFoundException;
 
-public class files {
-   public File customersFile;
+public class Files {
+    public File customersFile;
 
-    public files()
-    {
+    public Files() {
         this.customersFile = new File("customer.txt");
     }
 

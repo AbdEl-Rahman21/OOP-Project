@@ -1,10 +1,12 @@
 package Main;
 
+import Trips.*;
+
+import Account.Customer;
+
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.time.LocalDate;
 import java.util.InputMismatchException;
-import Classes.Customer;
 
 public class Main {
     // Array of tour guides
@@ -193,7 +195,6 @@ public class Main {
     private static void editCustomer() {
         int index = selectCustomer();
 
-        System.out.println("Customer Information:-");
         customers.get(index).displayCustomer();
 
         System.out.println("Edit Customer Information (Re-enter info you don't want to change):-");

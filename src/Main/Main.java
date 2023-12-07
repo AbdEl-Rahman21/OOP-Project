@@ -41,7 +41,7 @@ public class Main {
         int id = 0;
 
         if (!customers.isEmpty()) {
-            id = Integer.parseInt(customers.get(customers.size() - 1).getId());
+            id = Integer.parseInt(customers.get(customers.size()-1).getId());
 
             ++id;
         }

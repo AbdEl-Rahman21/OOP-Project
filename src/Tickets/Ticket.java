@@ -1,13 +1,13 @@
 package Tickets;
 import java.util.ArrayList;
 public abstract class Ticket {
-    private final String ticketID;
-    private final  String tripId;
-    private int num_of_pocket_seats;
-    private String Booked_Hotel;
-    private String Booked_Flight;
-    private String car_rental;
-    private ArrayList<String> activities=new ArrayList<>();
+    final String ticketID;
+    final  String tripId;
+    int num_of_pocket_seats;
+    String Booked_Hotel;
+    String Booked_Flight;
+    String car_rental;
+    ArrayList<String> activities=new ArrayList<>();
 
 
     public Ticket(String ticketID,String tripID, int num_of_pocket_seats ){
@@ -64,6 +64,23 @@ public abstract class Ticket {
     public ArrayList<String> getActivities() {
         return activities;
     }
+    public boolean check_activity(String activity){
+        if(activities.contains(activity)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    public void add_activity(String activity){
+        activities.add(activity);
+    }
+    public abstract void display_ticket();
 
+    public void display_activity(){
+        for (String activity:activities) {
+            System.out.println(activity);
+        }
+    }
 }
 

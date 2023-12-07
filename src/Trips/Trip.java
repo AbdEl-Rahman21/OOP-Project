@@ -17,10 +17,10 @@ public abstract class Trip {
     LocalDate endDate;
     LocalDate startDate;
 
-    final ArrayList<String> hotels = new ArrayList<>();
-    final ArrayList<String> flights = new ArrayList<>();
-    final ArrayList<String> carRentals = new ArrayList<>();
-    final ArrayList<String> activities = new ArrayList<>();
+    ArrayList<String> hotels = new ArrayList<>();
+    ArrayList<String> flights = new ArrayList<>();
+    ArrayList<String> carRentals = new ArrayList<>();
+    ArrayList<String> activities = new ArrayList<>();
 
     private final static Scanner input = new Scanner(System.in);
 
@@ -60,13 +60,17 @@ public abstract class Trip {
     public void setNumberOfSeats(int numberOfSeats) {
         if (numberOfBookedSeats > numberOfSeats) {
             System.out.println("New number of seats is less than the booked number of seats!");
-        }else {
+        } else {
             this.numberOfSeats = numberOfSeats;
         }
     }
 
     public int getNumberOfBookedSeats() {
         return numberOfBookedSeats;
+    }
+
+    public void setNumberOfBookedSeats(int numberOfBookedSeats) {
+        this.numberOfBookedSeats = numberOfBookedSeats;
     }
 
     public LocalDate getEndDate() {
@@ -87,6 +91,14 @@ public abstract class Trip {
 
     public void displayTripDuration() {
         System.out.println("Trip duration in days: " + startDate.until(endDate, ChronoUnit.DAYS));
+    }
+
+    public ArrayList<String> getHotels() {
+        return hotels;
+    }
+
+    public void setHotels(ArrayList<String> hotels) {
+        this.hotels = hotels;
     }
 
     public void addHotels() {
@@ -114,6 +126,14 @@ public abstract class Trip {
         }
     }
 
+    public ArrayList<String> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(ArrayList<String> flights) {
+        this.flights = flights;
+    }
+
     public void addFlights() {
         String flight;
 
@@ -139,6 +159,14 @@ public abstract class Trip {
         }
     }
 
+    public ArrayList<String> getCarRentals() {
+        return carRentals;
+    }
+
+    public void setCarRentals(ArrayList<String> carRentals) {
+        this.carRentals = carRentals;
+    }
+
     public void addCarRentals() {
         String carRental;
 
@@ -162,6 +190,14 @@ public abstract class Trip {
         for (int i = 1; i <= carRentals.size(); ++i) {
             System.out.println("[" + i + "] " + carRentals.get(i - 1) + ".");
         }
+    }
+
+    public ArrayList<String> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(ArrayList<String> activities) {
+        this.activities = activities;
     }
 
     public void addActivities() {

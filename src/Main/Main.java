@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 
 public class Main {
     // Array of tour guides
-    // Array of trips
+    private final static ArrayList<Trip> trips = new ArrayList<>();
     private final static ArrayList<Customer> customers = new ArrayList<>();
     private static int user = -2;  // -1 for admin or customer id
     private final static Scanner input = new Scanner(System.in);

@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 
 public abstract class Trip {
     String mainTour;
-    final String tripId;
+    final String id;
 
     int seatPrice;
     int numberOfSeats;
@@ -24,8 +24,8 @@ public abstract class Trip {
 
     private final static Scanner input = new Scanner(System.in);
 
-    public Trip(String tripId, String mainTour, int seatPrice, int numberOfSeats, LocalDate endDate, LocalDate startDate) {
-        this.tripId = tripId;
+    public Trip(String id, String mainTour, int seatPrice, int numberOfSeats, LocalDate endDate, LocalDate startDate) {
+        this.id = id;
         this.mainTour = mainTour;
         this.seatPrice = seatPrice;
         this.numberOfSeats = numberOfSeats;
@@ -33,8 +33,8 @@ public abstract class Trip {
         this.startDate = startDate;
     }
 
-    public String getTripId() {
-        return tripId;
+    public String getId() {
+        return id;
     }
 
     public String getMainTour() {

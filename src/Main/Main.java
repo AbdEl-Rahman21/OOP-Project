@@ -6,6 +6,9 @@ import Tickets.*;
 
 import Account.Customer;
 
+import java.time.LocalDate;
+import java.time.DateTimeException;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -49,7 +52,7 @@ public class Main {
             ++id;
         }
 
-        System.out.println("Customer ID: " + id);
+        System.out.println("\nCustomer ID: " + id);
 
         System.out.print("Enter name: ");
         String name = input.nextLine();
@@ -170,11 +173,11 @@ public class Main {
 
                     break;
                 case 9:
-                    //addTrip();
+                    addTrip();
 
                     break;
                 case 10:
-                    //displayTrip();
+                    trips.get(selectTrip()).displayTrip();
 
                     break;
             }
@@ -183,7 +186,96 @@ public class Main {
         } while (input.nextLine().equalsIgnoreCase("y"));
     }
 
+    private static void addTrip() {
+        int id = 0;
+        LocalDate endDate;
+
+        if (!trips.isEmpty()) {
+            id = Integer.parseInt(trips.get(trips.size() - 1).getId());
+
+            ++id;
+        }
+
+        System.out.println("\nTrip ID: " + id);
+
+        System.out.print("Enter Main Tour: ");
+        String mainTour = input.nextLine();
+
+        System.out.print("Enter Seat Price: ");
+        int seatPrice = getNumber(100, 500);
+
+        System.out.print("Enter Number Of Seats: ");
+        int numberOfSeats = getNumber(10, 50);
+
+        System.out.println("Enter Start Date:-");
+        LocalDate startDate = getDate();
+
+        while (true) {
+            System.out.println("Enter End Date:-");
+            endDate = getDate();
+
+            if (!endDate.isBefore(startDate)) {
+                break;
+            }
+
+            System.out.println("Error: End date is before start date");
+        }
+
+        while (true) {
+            System.out.println("Enter Trip Type ('g' for general - 'c' couple - 'f' family): ");
+            switch (input.nextLine().toLowerCase()) {
+                case "g":
+                    trips.add(new GeneralTrip(Integer.toString(id), mainTour, seatPrice, numberOfSeats, endDate,
+                            startDate));
+
+                    break;
+                case "c":
+                    trips.add(new CoupleTrip(Integer.toString(id), mainTour, seatPrice, numberOfSeats, endDate,
+                            startDate));
+
+                    break;
+                case "f":
+                    trips.add(new FamilyTrip(Integer.toString(id), mainTour, seatPrice, numberOfSeats, endDate,
+                            startDate));
+
+                    break;
+                default:
+                    System.out.println("Error: Invalid choice!");
+
+                    continue;
+            }
+
+            break;
+        }
+
+        trips.get(trips.size() - 1).addHotels();
+        trips.get(trips.size() - 1).addFlights();
+        trips.get(trips.size() - 1).addCarRentals();
+        trips.get(trips.size() - 1).addActivities();
+    }
+
+    private static int selectTrip() {
+        if (trips.isEmpty()) {
+            System.out.println("There are no trips!");
+        }
+
+        System.out.println("\nSelect a trip:-");
+
+        for (int i = 1; i <= trips.size(); ++i) {
+            System.out.println("[" + i + "] Trip ID: " + trips.get(i - 1).getId());
+            System.out.println("\s\s\s\sMain tour: " + trips.get(i - 1).getMainTour());
+        }
+
+        System.out.print("\nEnter your choice: ");
+
+        return getNumber(1, trips.size()) - 1;
+    }
+
     private static int selectCustomer() {
+        if (customers.isEmpty()) {
+            System.out.println("There are no customers!");
+        }
+
         System.out.println("\nSelect a customer:-");
 
         for (int i = 1; i <= customers.size(); ++i) {
@@ -201,7 +293,7 @@ public class Main {
 
         customers.get(index).displayCustomer();
 
-        System.out.println("Edit Customer Information (Re-enter info you don't want to change):-");
+        System.out.println("\nEdit Customer Information (Re-enter info you don't want to change):-");
 
         System.out.print("Enter name: ");
         customers.get(index).setName(input.nextLine());
@@ -231,17 +323,51 @@ public class Main {
                 while (true) {
                     number = input.nextInt();
 
+                    input.nextLine();
+
                     if (number >= lowerBound && number <= upperBound) {
                         return number;
                     }
 
-                    System.out.print("Please, enter a valid option options: ");
+                    System.out.print("Please, enter a valid option options [" + lowerBound + " - " + upperBound + "]: ");
                 }
             } catch (InputMismatchException e) {
                 System.out.print("Please, enter a number: ");
 
                 input.nextLine();
             }
+        }
+    }
+
+    private static LocalDate getDate() {
+        LocalDate date;
+        int year = 0;
+        int month = 0;
+        int day = 0;
+
+        while (true) {
+            System.out.print("Enter Year: ");
+            year = getNumber(LocalDate.now().getYear(), LocalDate.now().getYear() + 10);
+
+            System.out.print("Enter Month: ");
+            month = getNumber(1, 12);
+
+            System.out.print("Enter Day: ");
+            day = getNumber(1, 31);
+
+            try {
+                date = LocalDate.of(year, month, day);
+            } catch (DateTimeException e) {
+                System.out.println("Error: Invalid date!");
+
+                continue;
+            }
+
+            if (date.isAfter(LocalDate.now())) {
+                return date;
+            }
+
+            System.out.println("Error: Entered date is before the current date");
         }
     }
 }

@@ -6,8 +6,8 @@ public class GoldTicket extends Ticket{
     
     private final String[] bookedFeatures; // Two booked features
 
-    public GoldTicket(String ticketId, String tripId, int numberOfBookedSeats, String[] bookedFeatures) {
-        super(ticketId, tripId, numberOfBookedSeats);
+    public GoldTicket(String id, String tripId, int numberOfBookedSeats, String[] bookedFeatures) {
+        super(id, tripId, numberOfBookedSeats);
         
         this.bookedFeatures = bookedFeatures;
     }
@@ -16,7 +16,7 @@ public class GoldTicket extends Ticket{
     public void displayTicket() {
         System.out.println("\nTicket Information:-");
         System.out.println("Ticket Type: Gold");
-        System.out.println("Ticket ID: " + ticketId);
+        System.out.println("Ticket ID: " + id);
         System.out.println("Trip ID: " + tripId);
         System.out.println("Ticket Voucher (Next Trip): 5%");
         System.out.println("Number Of Booked Seats: " + numberOfBookedSeats);

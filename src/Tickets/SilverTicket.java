@@ -3,8 +3,8 @@ package Tickets;
 public class SilverTicket extends Ticket{
     private final String bookedFeatures; // One booked feature
 
-    public SilverTicket(String ticketId, String tripId, int numberOfBookedSeats, String bookedFeatures) {
-        super(ticketId, tripId, numberOfBookedSeats);
+    public SilverTicket(String id, String tripId, int numberOfBookedSeats, String bookedFeatures) {
+        super(id, tripId, numberOfBookedSeats);
         this.bookedFeatures = bookedFeatures;
     }
 
@@ -12,7 +12,7 @@ public class SilverTicket extends Ticket{
     public void displayTicket() {
         System.out.println("\nTicket Information:-");
         System.out.println("Ticket Type: Silver");
-        System.out.println("Ticket ID: " + ticketId);
+        System.out.println("Ticket ID: " + id);
         System.out.println("Trip ID: " + tripId);
         System.out.println("Number Of Booked Seats: " + numberOfBookedSeats);
         System.out.println("Booked Features: " + bookedFeatures);

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Ticket {
     final String tripId;
-    final String ticketId;
+    final String id;
 
     String bookedHotel;
     String bookedFlight;
@@ -14,8 +14,8 @@ public abstract class Ticket {
 
     ArrayList<String> activities = new ArrayList<>();
 
-    public Ticket(String ticketId, String tripId, int numberOfBookedSeats) {
-        this.ticketId = ticketId;
+    public Ticket(String id, String tripId, int numberOfBookedSeats) {
+        this.id = id;
         this.tripId = tripId;
         this.numberOfBookedSeats = numberOfBookedSeats;
     }
@@ -24,8 +24,8 @@ public abstract class Ticket {
         return tripId;
     }
 
-    public String getTicketId() {
-        return ticketId;
+    public String getId() {
+        return id;
     }
 
     public String getBookedHotel() {

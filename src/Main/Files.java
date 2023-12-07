@@ -66,7 +66,7 @@ public class Files {
                     myWriter.write("f\n");
                 }
 
-                myWriter.write(trip.getTripId() + "\n");
+                myWriter.write(trip.getId() + "\n");
                 myWriter.write(trip.getMainTour() + "\n");
                 myWriter.write(trip.getSeatPrice() + "\n");
                 myWriter.write(trip.getNumberOfSeats() + "\n");

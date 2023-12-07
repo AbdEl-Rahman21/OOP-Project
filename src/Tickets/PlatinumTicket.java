@@ -5,8 +5,8 @@ public class PlatinumTicket extends Ticket {
 
     private final String[] bookedFeatures; // Three booked features
 
-    public PlatinumTicket(String ticketId, String tripId, int numberOfBookedSeats, String[] bookedFeatures){
-        super(ticketId, tripId, numberOfBookedSeats);
+    public PlatinumTicket(String id, String tripId, int numberOfBookedSeats, String[] bookedFeatures){
+        super(id, tripId, numberOfBookedSeats);
 
         this.bookedFeatures = bookedFeatures;
         bookedCarRental = "VIP Car Rental"; // Free car rental
@@ -16,7 +16,7 @@ public class PlatinumTicket extends Ticket {
     public void displayTicket() {
         System.out.println("\nTicket Information:-");
         System.out.println("Ticket Type: Platinum");
-        System.out.println("Ticket ID: " + ticketId);
+        System.out.println("Ticket ID: " + id);
         System.out.println("Trip ID: " + tripId);
         System.out.println("Ticket Voucher (Next Trip): 10%");
         System.out.println("Number Of Booked Seats: " + numberOfBookedSeats);

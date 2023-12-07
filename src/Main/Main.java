@@ -2,6 +2,8 @@ package Main;
 
 import Trips.*;
 
+import Tickets.*;
+
 import Account.Customer;
 
 import java.util.Scanner;
@@ -10,9 +12,10 @@ import java.util.InputMismatchException;
 
 public class Main {
     // Array of tour guides
+    private static String lastTicketId; // Stored to generate new IDs
     private final static ArrayList<Trip> trips = new ArrayList<>();
     private final static ArrayList<Customer> customers = new ArrayList<>();
-    private static int user = -2;  // -1 for admin or customer id
+    private static int user = -2;  // -1 for admin or customer ID
     private final static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -41,7 +44,7 @@ public class Main {
         int id = 0;
 
         if (!customers.isEmpty()) {
-            id = Integer.parseInt(customers.get(customers.size()-1).getId());
+            id = Integer.parseInt(customers.get(customers.size() - 1).getId());
 
             ++id;
         }
@@ -49,13 +52,13 @@ public class Main {
         System.out.println("Customer ID: " + id);
 
         System.out.print("Enter name: ");
-        String name = input.next();
+        String name = input.nextLine();
 
         System.out.print("Enter email: ");
-        String email = input.next();
+        String email = input.nextLine();
 
         System.out.print("Enter phone number: ");
-        String phone = input.next();
+        String phone = input.nextLine();
 
         String password = getValidPassword(null);
 
@@ -65,20 +68,21 @@ public class Main {
     }
 
     private static String getValidPassword(String currentPassword) {
-        String password;
         boolean valid;
+
+        String password;
 
         while (true) {
             valid = true;
 
             System.out.print("Enter password: ");
-            password = input.next();
+            password = input.nextLine();
 
             if (currentPassword != null && currentPassword.equals(password)) {
                 return password;
             }
 
-            for (Customer customer: customers) {
+            for (Customer customer : customers) {
                 if (customer.getPassword().equals(password)) {
                     valid = false;
 
@@ -96,17 +100,17 @@ public class Main {
 
     private static void logIn() {
         System.out.print("\nEnter your id: ");
-        String id = input.next();
+        String id = input.nextLine();
 
         System.out.print("Enter your password: ");
-        String password = input.next();
+        String password = input.nextLine();
 
         if (id.equals("admin") && password.equals("admin")) {
             user = -1;
 
             return;
         } else {
-            for (Customer customer: customers) {
+            for (Customer customer : customers) {
                 if (customer.verifyIdentity(id, password)) {
                     user = Integer.parseInt(customer.getId());
 
@@ -176,7 +180,7 @@ public class Main {
             }
 
             System.out.print("Press (Y) to continue or any other key to exit: ");
-        } while (input.next().equalsIgnoreCase("y"));
+        } while (input.nextLine().equalsIgnoreCase("y"));
     }
 
     private static int selectCustomer() {
@@ -200,13 +204,13 @@ public class Main {
         System.out.println("Edit Customer Information (Re-enter info you don't want to change):-");
 
         System.out.print("Enter name: ");
-        customers.get(index).setName(input.next());
+        customers.get(index).setName(input.nextLine());
 
         System.out.print("Enter email: ");
-        customers.get(index).setEmail(input.next());
+        customers.get(index).setEmail(input.nextLine());
 
         System.out.print("Enter phone number: ");
-        customers.get(index).setPhone(input.next());
+        customers.get(index).setPhone(input.nextLine());
 
         customers.get(index).setPassword(getValidPassword(customers.get(index).getPassword()));
     }
@@ -236,7 +240,7 @@ public class Main {
             } catch (InputMismatchException e) {
                 System.out.print("Please, enter a number: ");
 
-                input.next();
+                input.nextLine();
             }
         }
     }

@@ -11,7 +11,7 @@ public class CoupleTrip extends Trip {
 
     @Override
     public  void displayTrip() {
-        System.out.println("\nTrip Information");
+        System.out.println("\nTrip Information:-");
         System.out.println("Trip ID: " + tripId);
         System.out.println("Trip Type: Couple");
         System.out.println("Main Tour: " + mainTour);

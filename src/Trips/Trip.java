@@ -106,7 +106,7 @@ public abstract class Trip {
 
         do {
             System.out.print("\nEnter hotel: ");
-            hotel = input.next();
+            hotel = input.nextLine();
 
             if (hotels.contains(hotel)) {
                 System.out.println("Hotel already exists!");
@@ -115,7 +115,7 @@ public abstract class Trip {
             }
 
             System.out.print("Press (Y) to add another hotel or any other key to exit: ");
-        } while (input.next().equalsIgnoreCase("y"));
+        } while (input.nextLine().equalsIgnoreCase("y"));
     }
 
     public void displayHotels() {
@@ -139,7 +139,7 @@ public abstract class Trip {
 
         do {
             System.out.print("\nEnter flight: ");
-            flight = input.next();
+            flight = input.nextLine();
 
             if (flights.contains(flight)) {
                 System.out.println("Flight already exists!");
@@ -148,7 +148,7 @@ public abstract class Trip {
             }
 
             System.out.print("Press (Y) to add another flight or any other key to exit: ");
-        } while (input.next().equalsIgnoreCase("y"));
+        } while (input.nextLine().equalsIgnoreCase("y"));
     }
 
     public void displayFlights() {
@@ -172,7 +172,7 @@ public abstract class Trip {
 
         do {
             System.out.print("\nEnter car rental: ");
-            carRental = input.next();
+            carRental = input.nextLine();
 
             if (carRentals.contains(carRental)) {
                 System.out.println("Car rental already exists!");
@@ -181,7 +181,7 @@ public abstract class Trip {
             }
 
             System.out.print("Press (Y) to add another car rental or any other key to exit: ");
-        } while (input.next().equalsIgnoreCase("y"));
+        } while (input.nextLine().equalsIgnoreCase("y"));
     }
 
     public void displayCarRentals() {
@@ -205,7 +205,7 @@ public abstract class Trip {
 
         do {
             System.out.print("\nEnter activity: ");
-            activity = input.next();
+            activity = input.nextLine();
 
             if (activities.contains(activity)) {
                 System.out.println("Activity already exists!");
@@ -214,7 +214,7 @@ public abstract class Trip {
             }
 
             System.out.print("Press (Y) to add another activity or any other key to exit: ");
-        } while (input.next().equalsIgnoreCase("y"));
+        } while (input.nextLine().equalsIgnoreCase("y"));
     }
 
     public void displayActivities() {

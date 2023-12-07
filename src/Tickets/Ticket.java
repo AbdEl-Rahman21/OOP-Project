@@ -1,86 +1,89 @@
 package Tickets;
+
 import java.util.ArrayList;
+
 public abstract class Ticket {
-    final String ticketID;
-    final  String tripId;
-    int num_of_pocket_seats;
-    String Booked_Hotel;
-    String Booked_Flight;
-    String car_rental;
-    ArrayList<String> activities=new ArrayList<>();
+    final String tripId;
+    final String ticketId;
 
+    String bookedHotel;
+    String bookedFlight;
+    String bookedCarRental;
 
-    public Ticket(String ticketID,String tripID, int num_of_pocket_seats ){
-        this.ticketID = ticketID;
-        this.tripId =tripID;
-        this.num_of_pocket_seats=num_of_pocket_seats;
+    int numberOfBookedSeats;
+
+    ArrayList<String> activities = new ArrayList<>();
+
+    public Ticket(String ticketId, String tripId, int numberOfBookedSeats) {
+        this.ticketId = ticketId;
+        this.tripId = tripId;
+        this.numberOfBookedSeats = numberOfBookedSeats;
     }
 
     public String getTripId() {
         return tripId;
-
     }
 
-    public String getTicketID() {
-        return ticketID;
+    public String getTicketId() {
+        return ticketId;
     }
 
-    public String getBooked_Flight() {
-        return Booked_Flight;
+    public String getBookedHotel() {
+        return bookedHotel;
     }
 
-    public String getBooked_Hotel() {
-        return Booked_Hotel;
+    public void setBookedHotel(String bookedHotel) {
+        this.bookedHotel = bookedHotel;
     }
 
-    public String getCar_rental() {
-        return car_rental;
+    public String getBookedFlight() {
+        return bookedFlight;
+    }
+
+    public void setBookedFlight(String bookedFlight) {
+        this.bookedFlight = bookedFlight;
+    }
+
+    public String getBookedCarRental() {
+        return bookedCarRental;
+    }
+
+    public void setBookedCarRental(String bookedCarRental) {
+        this.bookedCarRental = bookedCarRental;
+    }
+
+    public int getNumberOfBookedSeats() {
+        return numberOfBookedSeats;
+    }
+
+    public void setNumberOfBookedSeats(int numberOfBookedSeats) {
+        this.numberOfBookedSeats = numberOfBookedSeats;
+    }
+
+    public ArrayList<String> getActivities() {
+        return activities;
     }
 
     public void setActivities(ArrayList<String> activities) {
         this.activities = activities;
     }
 
-    public void setBooked_Flight(String booked_Flight) {
-        Booked_Flight = booked_Flight;
-    }
-
-    public int getNum_of_poAcket_seats() {
-        return num_of_pocket_seats;
-    }
-
-    public void setBooked_Hotel(String booked_Hotel) {
-        Booked_Hotel = booked_Hotel;
-    }
-
-    public void setCar_rental(String car_rental) {
-        this.car_rental = car_rental;
-    }
-
-    public void setNum_of_pocket_seats(int num_of_pocket_seats) {
-        this.num_of_pocket_seats = num_of_pocket_seats;
-    }
-
-    public ArrayList<String> getActivities() {
-        return activities;
-    }
-    public boolean check_activity(String activity){
-        if(activities.contains(activity)){
-            return true;
+    public void addActivity(String activity) {
+        if (!activities.contains(activity)) {
+            activities.add(activity);
         }
-        else {
-            return false;
+
+        System.out.println("Activity already booked!");
+    }
+
+    public void displayBookedActivities() {
+        System.out.println("\nBooked Activities:-");
+
+        for (int i = 1; i <= activities.size(); ++i) {
+            System.out.println("[" + i + "] " + activities.get(i - 1) + ".");
         }
     }
-    public void add_activity(String activity){
-        activities.add(activity);
-    }
-    public abstract void display_ticket();
 
-    public void display_activity(){
-        for (String activity:activities) {
-            System.out.println(activity);
-        }
-    }
+    public abstract void displayTicket();
 }
 

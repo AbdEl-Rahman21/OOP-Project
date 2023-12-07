@@ -7,6 +7,7 @@ public class Customer {
     private String email;
     private String phone;
     private String password;
+
     private int numberOfTrips;
     // private int birth_date;
     // private booked_tickets[];

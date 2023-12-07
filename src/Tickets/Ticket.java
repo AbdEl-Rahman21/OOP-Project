@@ -45,7 +45,7 @@ public abstract class Ticket {
         Booked_Flight = booked_Flight;
     }
 
-    public int getNum_of_pocket_seats() {
+    public int getNum_of_poAcket_seats() {
         return num_of_pocket_seats;
     }
 

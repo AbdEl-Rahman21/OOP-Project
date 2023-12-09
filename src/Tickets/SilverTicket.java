@@ -22,4 +22,8 @@ public class SilverTicket extends Ticket{
 
         displayBookedActivities();
     }
+
+    public String getBookedFeatures() {
+        return bookedFeatures;
+    }
 }

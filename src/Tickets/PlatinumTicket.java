@@ -29,4 +29,7 @@ public class PlatinumTicket extends Ticket {
         displayBookedActivities();
     }
 
+    public String[] getBookedFeatures() {
+        return bookedFeatures;
+    }
 }

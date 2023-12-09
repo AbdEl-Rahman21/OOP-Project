@@ -27,4 +27,8 @@ public class GoldTicket extends Ticket{
         
         displayBookedActivities();
     }
+
+    public String[] getBookedFeatures() {
+        return bookedFeatures;
+    }
 }

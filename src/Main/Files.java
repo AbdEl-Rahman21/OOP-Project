@@ -187,7 +187,7 @@ public class Files {
 
     public static void saveTickets(ArrayList<Ticket> tickets) {
         try {
-            FileWriter myWriter = new FileWriter(customerFile);
+            FileWriter myWriter = new FileWriter(ticketFile);
             GoldTicket golden;
             SilverTicket silver;
             PlatinumTicket platinum;
@@ -273,7 +273,7 @@ public class Files {
         try {
             int size = 0;
             ArrayList<String> temp = new ArrayList<>();
-            Scanner myReader = new Scanner(customerFile);
+            Scanner myReader = new Scanner(ticketFile);
             while (myReader.hasNextLine()) {
                 if (myReader.nextLine().equals("s")) {
                     tickets.add(new SilverTicket(myReader.nextLine(),

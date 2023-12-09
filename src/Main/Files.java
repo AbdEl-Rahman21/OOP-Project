@@ -112,7 +112,7 @@ public class Files {
     }
 
     public static void loadTrips(ArrayList<Trip> trips) {
-        int size = 0;
+        int size;
 
         ArrayList <String> temp = new ArrayList<>();
 
@@ -271,14 +271,14 @@ public class Files {
 
     public static void loadTickets(ArrayList<Ticket> tickets) {
         try {
-            int size = 0;
+            int size;
             ArrayList<String> temp = new ArrayList<>();
             Scanner myReader = new Scanner(ticketFile);
             while (myReader.hasNextLine()) {
                 if (myReader.nextLine().equals("s")) {
                     tickets.add(new SilverTicket(myReader.nextLine(),
                             myReader.nextLine(),
-                            Integer.valueOf(myReader.nextLine()),
+                            Integer.parseInt(myReader.nextLine()),
                             myReader.nextLine()));
                     tickets.get(tickets.size()-1).setBookedHotel(myReader.nextLine());
                     tickets.get(tickets.size()-1).setBookedFlight(myReader.nextLine());
@@ -295,8 +295,8 @@ public class Files {
 
                     tickets.add(new PlatinumTicket(myReader.nextLine(),
                             myReader.nextLine(),
-                            Integer.valueOf(myReader.nextLine()),
-                            readArray(Integer.valueOf(myReader.nextLine()), myReader)));
+                            Integer.parseInt(myReader.nextLine()),
+                            readArray(Integer.parseInt(myReader.nextLine()), myReader)));
                     tickets.get(tickets.size()-1).setBookedHotel(myReader.nextLine());
                     tickets.get(tickets.size()-1).setBookedFlight(myReader.nextLine());
                     tickets.get(tickets.size()-1).setBookedCarRental(myReader.nextLine());
@@ -310,8 +310,8 @@ public class Files {
                 {
                     tickets.add(new GoldTicket(myReader.nextLine(),
                             myReader.nextLine(),
-                            Integer.valueOf(myReader.nextLine()),
-                            readArray(Integer.valueOf(myReader.nextLine()), myReader)));
+                            Integer.parseInt(myReader.nextLine()),
+                            readArray(Integer.parseInt(myReader.nextLine()), myReader)));
                     tickets.get(tickets.size()-1).setBookedHotel(myReader.nextLine());
                     tickets.get(tickets.size()-1).setBookedFlight(myReader.nextLine());
                     tickets.get(tickets.size()-1).setBookedCarRental(myReader.nextLine());
@@ -332,7 +332,7 @@ public class Files {
 
     public static String[] readArray(int size,Scanner myReader)
     {
-        String arr[] = new String[size];
+        String[] arr = new String[size];
         for (int i = 0; i < size; i++)
         {
             arr[i] = myReader.nextLine();

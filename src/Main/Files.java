@@ -325,7 +325,7 @@ public class Files {
             }
             myReader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Error: Can not load customer data.");
+            System.out.println("Error: Can not load ticket data.");
             System.out.println(e.getMessage());
         }
     }

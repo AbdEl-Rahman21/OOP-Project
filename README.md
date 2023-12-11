@@ -18,13 +18,13 @@ Develop an application to help the manager of a Travel agency manage and organiz
 
 ### Features
 1) Tour guide Details:-
-- Each Tour guide is assigned to a Trip.
+- Each Tour guide is assigned to a Trips.
 - Tour guide salary is calculated based on the number of Trips made monthly.
 - The Number of Tour Guides available should be maintained.
 
-2) Trip Details:-
-- Each Trip has a start and end date.
-- There Are 3 different Trip Types: Family tours, Couple tours, & General tours.
+2) Trips Details:-
+- Each Trips has a start and end date.
+- There Are 3 different Trips Types: Family tours, Couple tours, & General tours.
 - No. of seats available for a particular trip should be tracked.
 
 3) Ticket Details:-
@@ -49,5 +49,5 @@ Develop an application to help the manager of a Travel agency manage and organiz
 7) Admin Interface:-
 - Add/edit/delete/Display Customer account.
 - Add/edit/delete/Display Tour guide account.
-- The system should check the ticket availability of the Trip chosen, before adding a new customer account & inform the user.
+- The system should check the ticket availability of the Trips chosen, before adding a new customer account & inform the user.
 - The system should notify the user if the customer can receive a discount or not.

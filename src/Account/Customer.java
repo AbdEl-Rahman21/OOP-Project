@@ -1,5 +1,6 @@
 package Account;
-
+import java.util.ArrayList;
+import Tickets.*;
 public class Customer {
     // Attributes
     private final String id;
@@ -10,7 +11,7 @@ public class Customer {
 
     private int numberOfTrips;
     // private int birth_date;
-    // private booked_tickets[];
+     private ArrayList<Ticket> booked_tickets= new ArrayList();
 
     public Customer(String id, String name, String email, String phone, String password) {
         this.id = id;
@@ -70,9 +71,11 @@ public class Customer {
         return id.equals(this.id) && password.equals(this.password);
     }
 
-    public void displayCustomer() {
+    public void displayCustomer()
+    {
         System.out.println("\nCustomer Information:-");
         System.out.println("Id: " + id + "\nName: " + name + "\nEmail: " + email + "\nPhone: " + phone);
         System.out.println("Password: " + password + "\nNumber Of Trips: " + numberOfTrips);
     }
+
 }

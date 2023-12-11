@@ -1,111 +1,94 @@
 package Account;
+
 import java.util.ArrayList;
+
 import java.time.LocalDate;
+
 public class TourGuide {
     private String name;
-    private String id;
-    private int phonenum;
-    private int age;
-    private String assssigntrip;
-    private ArrayList<LocalDate> tripsmade;
-    private static int avalguides;
-    public TourGuide (String name,String id,int phonenum,int age)
-    {
+    private final String id;
+    private String assignedTrip;
+    private static int availableGuides;
+
+    private ArrayList<LocalDate> tripsMade = new ArrayList<>();
+
+    public TourGuide(String id, String name) {
+        this.id = id;
         this.name = name;
-        this.id = id;
-        this.phonenum = phonenum;
-        this.age = age;
-        avalguides++;
-    }
 
-    public int getAge() {
-        return age;
-    }
-
-    public static int getAvalguides() {
-        return avalguides;
-    }
-
-    public String getAssssigntrip() {
-        return assssigntrip;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setAssssigntrip(String assssigntrip) {
-        if(assssigntrip==null && this.assssigntrip != null)
-        {
-            avalguides++;
-        }
-        else if(assssigntrip!=null && this.assssigntrip == null)
-        {
-            avalguides--;
-        }
-        this.assssigntrip = assssigntrip;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public ArrayList<LocalDate> getTripsmade() {
-        return tripsmade;
-    }
-
-    public int getPhonenum() {
-        return phonenum;
+        ++availableGuides;
     }
 
     public String getId() {
         return id;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public static void setAvalguides(int avalguides) {
-        TourGuide.avalguides = avalguides;
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPhonenum(int phonenum) {
-        this.phonenum = phonenum;
+    public String getAssignedTrip() {
+        return assignedTrip;
     }
 
-    public void setTripsmade(ArrayList<LocalDate> tripsmade) {
-        this.tripsmade = tripsmade;
-    }
-    public void finishtrip(LocalDate tripdate)
-    {
-        assssigntrip =null;
-        tripsmade.add(tripdate);
-        avalguides++;
-    }
-    public int calcsalery()
-    {
-        int counter = 0;
-        int tripcost = 500;
-        int datediff=0;
-        for (LocalDate tripdate:tripsmade) {
-            datediff=LocalDate.now().getMonth().compareTo(tripdate.getMonth());
-            if(datediff==1 || datediff==-11)
-            {counter++;}
+    public void setAssignTrip(String assignedTrip) {
+        if (assignedTrip == null && this.assignedTrip != null) {
+            ++availableGuides;
+        } else if (assignedTrip !=null && this.assignedTrip == null) {
+            --availableGuides;
         }
-        return counter*tripcost;
+
+        this.assignedTrip = assignedTrip;
     }
-    public void display ()
-    {
-        System.out.println("Name: "+name);
-        System.out.println("Id: "+id);
-        System.out.println("Phone number: "+phonenum);
-        System.out.println("Age: "+age);
-        System.out.println("Assigned trip: "+assssigntrip==null ? "Available":assssigntrip);
-        System.out.println("Trips made: "+tripsmade.size());
+
+    public static int getAvailableGuides() {
+        return availableGuides;
+    }
+
+    public static void setAvailableGuides(int availableGuides) {
+        TourGuide.availableGuides = availableGuides;
+    }
+
+    public ArrayList<LocalDate> getTripsMade() {
+        return tripsMade;
+    }
+
+    public void setTripsMade(ArrayList<LocalDate> tripsMade) {
+        this.tripsMade = tripsMade;
+    }
+
+    public void finishTrip(LocalDate tripDate) {
+        setAssignTrip(null);
+
+        tripsMade.add(tripDate);
+
+        ++availableGuides;
+    }
+
+    public int calculateSalary() {
+        int counter = 0;
+        int dateDifference = 0;
+
+        for (LocalDate tripDate : tripsMade) {
+            dateDifference = LocalDate.now().getMonth().compareTo(tripDate.getMonth());
+
+            if (dateDifference == 1 || dateDifference == -11) {
+                ++counter;
+            }
+        }
+
+        return counter * 500;
+    }
+
+    public void displayTourGuide() {
+        System.out.println("\nTour Guide Information:-");
+        System.out.println("Id: " + id);
+        System.out.println("Name: " + name);
+        System.out.println("Assigned trip: " + assignedTrip == null ? "Available" : assignedTrip);
+        System.out.println("Last Month Salary: " + calculateSalary());
     }
 }

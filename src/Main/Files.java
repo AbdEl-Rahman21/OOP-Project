@@ -1,12 +1,10 @@
 package Main;
 
-import Tickets.GoldTicket;
-import Tickets.PlatinumTicket;
-import Tickets.SilverTicket;
-import Tickets.Ticket;
 import Trips.*;
 
-import Account.Customer;
+import Tickets.*;
+
+import Account.*;
 
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -28,11 +26,12 @@ public class Files {
             FileWriter myWriter = new FileWriter(customerFile);
 
             for (Customer customer : customers) {
-                myWriter.write(customer.getId() + "\n");
+                myWriter.write(customer.getID() + "\n");
                 myWriter.write(customer.getName() + "\n");
                 myWriter.write(customer.getEmail() + "\n");
                 myWriter.write(customer.getPhone() + "\n");
                 myWriter.write(customer.getPassword() + "\n");
+                myWriter.write(customer.getNumberOfTrips() + "\n");
             }
 
             myWriter.close();
@@ -47,8 +46,10 @@ public class Files {
             Scanner myReader = new Scanner(customerFile);
 
             while (myReader.hasNextLine()) {
-                customers.add(new Customer(myReader.nextLine(), myReader.nextLine(), myReader.nextLine(),
-                        myReader.nextLine(), myReader.nextLine()));
+                customers.add(new Customer(Integer.parseInt(myReader.nextLine()), myReader.nextLine(),
+                        myReader.nextLine(), myReader.nextLine(), myReader.nextLine()));
+
+                customers.get(customers.size() - 1).setNumberOfTrips(Integer.parseInt(myReader.nextLine()));
             }
 
             myReader.close();
@@ -71,7 +72,7 @@ public class Files {
                     myWriter.write("f\n");
                 }
 
-                myWriter.write(trip.getId() + "\n");
+                myWriter.write(trip.getID() + "\n");
                 myWriter.write(trip.getMainTour() + "\n");
                 myWriter.write(trip.getSeatPrice() + "\n");
                 myWriter.write(trip.getNumberOfSeats() + "\n");
@@ -114,7 +115,7 @@ public class Files {
     public static void loadTrips(ArrayList<Trip> trips) {
         int size;
 
-        ArrayList <String> temp = new ArrayList<>();
+        ArrayList<String> temp = new ArrayList<>();
 
         try {
             Scanner myReader = new Scanner(tripFile);
@@ -122,19 +123,19 @@ public class Files {
             while (myReader.hasNextLine()) {
                 if (myReader.nextLine().equals("g")) {
 
-                    trips.add(new GeneralTrip(myReader.nextLine(), myReader.nextLine(),
+                    trips.add(new GeneralTrip(Integer.parseInt(myReader.nextLine()), myReader.nextLine(),
                             Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
                             LocalDate.parse(myReader.nextLine()), LocalDate.parse(myReader.nextLine())));
 
                 } else if (myReader.nextLine().equals("c")) {
 
-                    trips.add(new CoupleTrip(myReader.nextLine(), myReader.nextLine(),
+                    trips.add(new CoupleTrip(Integer.parseInt(myReader.nextLine()), myReader.nextLine(),
                             Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
                             LocalDate.parse(myReader.nextLine()), LocalDate.parse(myReader.nextLine())));
 
                 } else if (myReader.nextLine().equals("f")) {
 
-                    trips.add(new FamilyTrip(myReader.nextLine(), myReader.nextLine(),
+                    trips.add(new FamilyTrip(Integer.parseInt(myReader.nextLine()), myReader.nextLine(),
                             Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
                             LocalDate.parse(myReader.nextLine()), LocalDate.parse(myReader.nextLine())));
 
@@ -187,79 +188,79 @@ public class Files {
 
     public static void saveTickets(ArrayList<Ticket> tickets) {
         try {
+            int bookedFeaturesSize = 0;
+
             FileWriter myWriter = new FileWriter(ticketFile);
-            GoldTicket golden;
+
+            GoldTicket gold;
             SilverTicket silver;
             PlatinumTicket platinum;
-            int bookedFeaturesSize = 0;
+
             for (Ticket ticket : tickets) {
-                if (ticket instanceof SilverTicket)
-                {
-                    silver = (SilverTicket)ticket;
-                    myWriter.write("s \n");
-                    myWriter.write(silver.getId() + "\n");
-                    myWriter.write(silver.getTripId() + "\n");
-                    myWriter.write(Integer.toString(silver.getNumberOfBookedSeats()));
-                    myWriter.write("\n");
-                    myWriter.write(silver.getBookedFeatures());
+                if (ticket instanceof SilverTicket) {
+                    silver = (SilverTicket) ticket;
+
+                    myWriter.write("s\n");
+
+                    myWriter.write(silver.getID() + "\n");
+                    myWriter.write(silver.getTRIP_ID() + "\n");
+                    myWriter.write(silver.getNumberOfBookedSeats() + "\n");
+                    myWriter.write(silver.getBookedFeatures() + "\n");
+
                     myWriter.write(silver.getBookedHotel() + "\n");
                     myWriter.write(silver.getBookedFlight() + "\n");
                     myWriter.write(silver.getBookedCarRental() + "\n");
-                    myWriter.write(Integer.toString(silver.getActivities().size()));
-                    for (String activities : silver.getActivities())
-                    {
-                        myWriter.write(activities + "\n");
+
+                    myWriter.write(silver.getActivities().size() + "\n");
+
+                    for (String activity : silver.getActivities()) {
+                        myWriter.write(activity + "\n");
                     }
                 } else if (ticket instanceof GoldTicket) {
-                    golden = (GoldTicket)ticket;
-                    myWriter.write("g \n");
-                    myWriter.write(golden.getId() + "\n");
-                    myWriter.write(golden.getTripId() + "\n");
-                    myWriter.write(Integer.toString(golden.getNumberOfBookedSeats()));
-                    myWriter.write("\n");
-                    for (String bookedFeatures : golden.getBookedFeatures())
-                    {
-                        bookedFeaturesSize++;
+                    gold = (GoldTicket) ticket;
+
+                    myWriter.write("g\n");
+
+                    myWriter.write(gold.getID() + "\n");
+                    myWriter.write(gold.getTRIP_ID() + "\n");
+                    myWriter.write(gold.getNumberOfBookedSeats() + "\n");
+
+                    for (String bookedFeature : gold.getBookedFeatures()) {
+                        myWriter.write(bookedFeature + "\n");
                     }
-                    myWriter.write(Integer.toString(bookedFeaturesSize));
-                    for (String bookedFeatures : golden.getBookedFeatures())
-                    {
-                        myWriter.write(bookedFeatures);
-                    }
-                    myWriter.write(golden.getBookedHotel() + "\n");
-                    myWriter.write(golden.getBookedFlight() + "\n");
-                    myWriter.write(golden.getBookedCarRental() + "\n");
-                    myWriter.write(Integer.toString(golden.getActivities().size()));
-                    for (String activities : golden.getActivities())
-                    {
-                        myWriter.write(activities + "\n");
+
+                    myWriter.write(gold.getBookedHotel() + "\n");
+                    myWriter.write(gold.getBookedFlight() + "\n");
+                    myWriter.write(gold.getBookedCarRental() + "\n");
+
+                    myWriter.write(gold.getActivities().size() + "\n");
+
+                    for (String activity : gold.getActivities()) {
+                        myWriter.write(activity + "\n");
                     }
                 } else if (ticket instanceof PlatinumTicket) {
                     platinum = (PlatinumTicket) ticket;
+
                     myWriter.write("p \n");
-                    myWriter.write(platinum.getId() + "\n");
-                    myWriter.write(platinum.getTripId() + "\n");
-                    myWriter.write(Integer.toString(platinum.getNumberOfBookedSeats()));
-                    myWriter.write("\n");
-                    for (String bookedFeatures : platinum.getBookedFeatures())
-                    {
-                        bookedFeaturesSize++;
+
+                    myWriter.write(platinum.getID() + "\n");
+                    myWriter.write(platinum.getTRIP_ID() + "\n");
+                    myWriter.write(platinum.getNumberOfBookedSeats() + "\n");
+
+                    for (String bookedFeature : platinum.getBookedFeatures()) {
+                        myWriter.write(bookedFeature + "\n");
                     }
-                    myWriter.write(Integer.toString(bookedFeaturesSize));
-                    for (String bookedFeatures : platinum.getBookedFeatures())
-                    {
-                        myWriter.write(bookedFeatures);
-                    }
+
                     myWriter.write(platinum.getBookedHotel() + "\n");
                     myWriter.write(platinum.getBookedFlight() + "\n");
                     myWriter.write(platinum.getBookedCarRental() + "\n");
-                    myWriter.write(Integer.toString(platinum.getActivities().size()));
-                    for (String activities : platinum.getActivities())
-                    {
-                        myWriter.write(activities + "\n");
+
+                    myWriter.write(platinum.getActivities().size() + "\n");
+
+                    for (String activity : platinum.getActivities()) {
+                        myWriter.write(activity + "\n");
                     }
                 }
-
             }
 
             myWriter.close();
@@ -270,59 +271,48 @@ public class Files {
     }
 
     public static void loadTickets(ArrayList<Ticket> tickets) {
+        int size;
+
+        ArrayList<String> temp = new ArrayList<>();
+
         try {
-            int size;
-            ArrayList<String> temp = new ArrayList<>();
             Scanner myReader = new Scanner(ticketFile);
+
             while (myReader.hasNextLine()) {
                 if (myReader.nextLine().equals("s")) {
-                    tickets.add(new SilverTicket(myReader.nextLine(),
-                            myReader.nextLine(),
-                            Integer.parseInt(myReader.nextLine()),
-                            myReader.nextLine()));
-                    tickets.get(tickets.size()-1).setBookedHotel(myReader.nextLine());
-                    tickets.get(tickets.size()-1).setBookedFlight(myReader.nextLine());
-                    tickets.get(tickets.size()-1).setBookedCarRental(myReader.nextLine());
-                    size = Integer.parseInt(myReader.nextLine());
-                    for (int i = 0; i < size; i++)
-                    {
-                        temp.add(myReader.nextLine());
-                    }
-                    tickets.get(tickets.size()-1).setActivities(temp);
-                }
-                else if (myReader.nextLine().equals("g"))
-                {
 
-                    tickets.add(new PlatinumTicket(myReader.nextLine(),
-                            myReader.nextLine(),
-                            Integer.parseInt(myReader.nextLine()),
-                            readArray(Integer.parseInt(myReader.nextLine()), myReader)));
-                    tickets.get(tickets.size()-1).setBookedHotel(myReader.nextLine());
-                    tickets.get(tickets.size()-1).setBookedFlight(myReader.nextLine());
-                    tickets.get(tickets.size()-1).setBookedCarRental(myReader.nextLine());
-                    size = Integer.parseInt(myReader.nextLine());
-                    for (int i = 0; i < size; i++)
-                    {
-                        temp.add(myReader.nextLine());
-                    }
-                    tickets.get(tickets.size()-1).setActivities(temp);
-                } else if (myReader.nextLine().equals("p"))
-                {
-                    tickets.add(new GoldTicket(myReader.nextLine(),
-                            myReader.nextLine(),
-                            Integer.parseInt(myReader.nextLine()),
-                            readArray(Integer.parseInt(myReader.nextLine()), myReader)));
-                    tickets.get(tickets.size()-1).setBookedHotel(myReader.nextLine());
-                    tickets.get(tickets.size()-1).setBookedFlight(myReader.nextLine());
-                    tickets.get(tickets.size()-1).setBookedCarRental(myReader.nextLine());
-                    size = Integer.parseInt(myReader.nextLine());
-                    for (int i = 0; i < size; i++)
-                    {
-                        temp.add(myReader.nextLine());
-                    }
-                    tickets.get(tickets.size()-1).setActivities(temp);
+                    tickets.add(new SilverTicket(Integer.parseInt(myReader.nextLine()),
+                            Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
+                            myReader.nextLine()));
+
+                } else if (myReader.nextLine().equals("g")) {
+
+                    tickets.add(new PlatinumTicket(Integer.parseInt(myReader.nextLine()),
+                            Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
+                            readArray(2, myReader)));
+
+                } else if (myReader.nextLine().equals("p")) {
+
+                    tickets.add(new GoldTicket(Integer.parseInt(myReader.nextLine()),
+                            Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
+                            readArray(3, myReader)));
+
                 }
+
+                tickets.get(tickets.size() - 1).setBookedHotel(myReader.nextLine());
+                tickets.get(tickets.size() - 1).setBookedFlight(myReader.nextLine());
+                tickets.get(tickets.size() - 1).setBookedCarRental(myReader.nextLine());
+
+                size = Integer.parseInt(myReader.nextLine());
+
+                for (int i = 0; i < size; i++) {
+                    temp.add(myReader.nextLine());
+                }
+
+                tickets.get(tickets.size() - 1).setActivities(temp);
+                temp.clear();
             }
+
             myReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error: Can not load ticket data.");
@@ -330,13 +320,13 @@ public class Files {
         }
     }
 
-    public static String[] readArray(int size,Scanner myReader)
-    {
-        String[] arr = new String[size];
-        for (int i = 0; i < size; i++)
-        {
-            arr[i] = myReader.nextLine();
+    public static String[] readArray(int size, Scanner myReader) {
+        String[] array = new String[size];
+
+        for (int i = 0; i < size; ++i) {
+            array[i] = myReader.nextLine();
         }
-        return arr;
+
+        return array;
     }
 }

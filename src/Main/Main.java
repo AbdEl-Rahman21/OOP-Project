@@ -4,7 +4,7 @@ import Trips.*;
 
 import Tickets.*;
 
-import Account.Customer;
+import Account.*;
 
 import java.time.LocalDate;
 import java.time.DateTimeException;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class Main {
-    // Array of tour guides
+    private final static ArrayList<TourGuide> tourGuides = new ArrayList<>();
     private static String lastTicketId; // Stored to generate new IDs
     private final static ArrayList<Trip> trips = new ArrayList<>();
     private final static ArrayList<Customer> customers = new ArrayList<>();
@@ -47,7 +47,7 @@ public class Main {
         int id = 0;
 
         if (!customers.isEmpty()) {
-            id = Integer.parseInt(customers.get(customers.size() - 1).getId());
+            id = customers.get(customers.size() - 1).getID();
 
             ++id;
         }
@@ -65,7 +65,7 @@ public class Main {
 
         String password = getValidPassword(null);
 
-        customers.add(new Customer(Integer.toString(id), name, email, phone, password));
+        customers.add(new Customer(id, name, email, phone, password));
 
         user = id;
     }
@@ -103,19 +103,19 @@ public class Main {
 
     private static void logIn() {
         System.out.print("\nEnter your id: ");
-        String id = input.nextLine();
+        int id = getNumber(0, customers.get(customers.size() - 1).getID());
 
         System.out.print("Enter your password: ");
         String password = input.nextLine();
 
-        if (id.equals("admin") && password.equals("admin")) {
-            user = -1;
+        if (id == -1 && password.equals("admin")) {
+            user = id;
 
             return;
         } else {
             for (Customer customer : customers) {
                 if (customer.verifyIdentity(id, password)) {
-                    user = Integer.parseInt(customer.getId());
+                    user = customer.getID();
 
                     return;
                 }
@@ -134,7 +134,7 @@ public class Main {
         System.out.println("[9] Add a trip.\n[10] Display a trip.\n");
         System.out.print("Enter your choice: ");
 
-        return getNumber(1,10);
+        return getNumber(1, 10);
     }
 
     private static void handleAdmin() {
@@ -191,7 +191,7 @@ public class Main {
         LocalDate endDate;
 
         if (!trips.isEmpty()) {
-            id = Integer.parseInt(trips.get(trips.size() - 1).getId());
+            id = trips.get(trips.size() - 1).getID();
 
             ++id;
         }
@@ -225,18 +225,15 @@ public class Main {
             System.out.println("Enter Trip Type ('g' for general - 'c' couple - 'f' family): ");
             switch (input.nextLine().toLowerCase()) {
                 case "g":
-                    trips.add(new GeneralTrip(Integer.toString(id), mainTour, seatPrice, numberOfSeats, endDate,
-                            startDate));
+                    trips.add(new GeneralTrip(id, mainTour, seatPrice, numberOfSeats, endDate, startDate));
 
                     break;
                 case "c":
-                    trips.add(new CoupleTrip(Integer.toString(id), mainTour, seatPrice, numberOfSeats, endDate,
-                            startDate));
+                    trips.add(new CoupleTrip(id, mainTour, seatPrice, numberOfSeats, endDate, startDate));
 
                     break;
                 case "f":
-                    trips.add(new FamilyTrip(Integer.toString(id), mainTour, seatPrice, numberOfSeats, endDate,
-                            startDate));
+                    trips.add(new FamilyTrip(id, mainTour, seatPrice, numberOfSeats, endDate, startDate));
 
                     break;
                 default:
@@ -262,7 +259,7 @@ public class Main {
         System.out.println("\nSelect a trip:-");
 
         for (int i = 1; i <= trips.size(); ++i) {
-            System.out.println("[" + i + "] Trip ID: " + trips.get(i - 1).getId());
+            System.out.println("[" + i + "] Trip ID: " + trips.get(i - 1).getID());
             System.out.println("\s\s\s\sMain tour: " + trips.get(i - 1).getMainTour());
         }
 
@@ -279,7 +276,7 @@ public class Main {
         System.out.println("\nSelect a customer:-");
 
         for (int i = 1; i <= customers.size(); ++i) {
-            System.out.println("[" + i + "] Customer ID: " + customers.get(i - 1).getId());
+            System.out.println("[" + i + "] Customer ID: " + customers.get(i - 1).getID());
             System.out.println("\s\s\s\sCustomer Name: " + customers.get(i - 1).getName());
         }
 
@@ -312,7 +309,7 @@ public class Main {
         System.out.println("Do you want to:-\n[1] Sign Up.\n[2] Log In.\n");
         System.out.print("Enter your choice: ");
 
-        return getNumber(1,2);
+        return getNumber(1, 2);
     }
 
     private static int getNumber(int lowerBound, int upperBound) {
@@ -370,67 +367,96 @@ public class Main {
             System.out.println("Error: Entered date is before the current date");
         }
     }
-    public static void booking()
-    {
-       String tripchoice;
-        System.out.println("How many seats you want to book ?");
-        int Bookedseats= getNumber(1,10);
-        if (Bookedseats==2)
-        {
-            System.out.println("What type of trips you want to book ?");
-            while (true)
-            {
-                System.out.println("[G] Genereal Trips\t[C] Couple Trips\t[F] Family Trips");
-                tripchoice = input.next();
-                if (tripchoice.equalsIgnoreCase("g") || tripchoice.equalsIgnoreCase("f") || tripchoice.equalsIgnoreCase("c"))
-                break;
+
+    public static void Book() {
+        String tripChoice;
+
+        System.out.print("Enter number of seats to book (1 -> 10): ");
+
+        int bookedSeats = getNumber(1, 10);
+
+        if (bookedSeats == 2) {
+            System.out.println("\nAvailable trip types:-");
+            System.out.println("[G] General Trips.\n[C] Couple Trips.\n[F] Family Trips.");
+            System.out.print("Enter your choice: ");
+
+            while (true) {
+                tripChoice = input.nextLine();
+
+                if (tripChoice.equalsIgnoreCase("g") || tripChoice.equalsIgnoreCase("c") ||
+                        tripChoice.equalsIgnoreCase("f")) {
+                    break;
                 }
-            }
 
-        if( Bookedseats >2)
-        {
-            while (true)
-            {
-                System.out.println("[G] Genereal Trips\t[F] Family Trips");
-                tripchoice=input.next();
-                if (tripchoice.equalsIgnoreCase("g") || tripchoice.equalsIgnoreCase("f"))
+                System.out.print("Please, enter a valid choice (g - c - f): ");
+            }
+        } else if (bookedSeats > 2) {
+            System.out.println("\nAvailable trip types:-");
+            System.out.println("[G] General Trips.\n[F] Family Trips.");
+            System.out.print("Enter your choice: ");
+
+            while (true) {
+                tripChoice = input.nextLine();
+
+                if (tripChoice.equalsIgnoreCase("g") || tripChoice.equalsIgnoreCase("f")) {
+                    break;
+                }
+
+                System.out.print("Please, enter a valid choice (g - c - f): ");
+            }
+        } else {
+            tripChoice = "g";
+        }
+
+        System.out.println("\nAvailable Ticket types:-");
+        System.out.println("[1] Silver Ticket: Main Tour + 1 Main Feature.");
+        System.out.println("[2] Gold Ticket: Main Tour + 2 Main Feature + 5% Voucher for your next trip.");
+        System.out.println("[3] Platinum Ticket: Main Tour + 3 Main Feature + 10% Voucher for your next trip + " +
+                "Free Car Rental.");
+        System.out.print("Enter your choice: ");
+
+        int ticketChoice = getNumber(1, 3);
+    }
+
+    public static void bookTrip(String tripChoice, int bookedSeats) {
+        String selectedTrip;
+
+        ArrayList<String> displayedTrips = new ArrayList<>();
+
+        System.out.println("Available Trips:-");
+
+        for (Trip trip : trips) {
+            if (tripChoice.equalsIgnoreCase("g") && trip instanceof GeneralTrip) {
+                System.out.println("Main Tour: " + trip.getMainTour() + " | ID: " + trip.getID() + " | Seat Price: " +
+                        trip.getSeatPrice() + " | Start Date: " + trip.getStartDate() + " | End Date: " +
+                        trip.getEndDate());
+
+                displayedTrips.add(Integer.toString(trip.getID()));
+            } else if (tripChoice.equalsIgnoreCase("c") && trip instanceof CoupleTrip) {
+                System.out.println("Main Tour: " + trip.getMainTour() + " | ID: " + trip.getID() + " | Seat Price: " +
+                        trip.getSeatPrice() + " | Start Date: " + trip.getStartDate() + " | End Date: " +
+                        trip.getEndDate());
+
+                displayedTrips.add(Integer.toString(trip.getID()));
+            } else if (tripChoice.equalsIgnoreCase("f") && trip instanceof FamilyTrip) {
+                System.out.println("Main Tour: " + trip.getMainTour() + " | ID: " + trip.getID() + " | Seat Price: " +
+                        trip.getSeatPrice() + " | Start Date: " + trip.getStartDate() + " | End Date: " +
+                        trip.getEndDate());
+
+                displayedTrips.add(Integer.toString(trip.getID()));
+            }
+        }
+
+        System.out.print("Enter your choice: ");
+
+        while (true) {
+            selectedTrip = Integer.toString(getNumber(0, trips.get(trips.size() - 1).getID()));
+
+            if (displayedTrips.contains(selectedTrip)) {
                 break;
             }
-        }
-        else
-            tripchoice="g";
 
-        System.out.println("What type of ticket you want to book ?");
-        System.out.println("1) Silver Ticket : offers you the main tour + 1 main feature. ");
-        System.out.println("2) Gold Ticket : offers you the main tour + 2 main feature + 5% off Voucher on your next trip");
-        System.out.println("3) Platinum Ticket : offers you the main tour + 3 main feature + 10% off Voucher on your next trip + Free Car rental");
-        int ticketchoice=getNumber(1,3);
-
-    }
-    public static void booktrip( String tripchoice , int bookedseats)
-    {
-        ArrayList<String> displayedID = new ArrayList<>();
-        System.out.println(" Enter trip ID to book : ");
-        for (Trip trip : trips) {
-            if (tripchoice.equalsIgnoreCase("g") && trip instanceof GeneralTrip) {
-                System.out.println("Main tour : " + trip.getMainTour() + " | ID : " + trip.getId() + " | Seat Price : " + trip.getSeatPrice() + " | Start Date : " + trip.getStartDate() + " | End Date : " + trip.getEndDate());
-                displayedID.add(trip.getId());
-            } else if (tripchoice.equalsIgnoreCase("c") && trip instanceof CoupleTrip) {
-                System.out.println("Main tour : " + trip.getMainTour() + " | ID : " + trip.getId() + " | Seat Price : " + trip.getSeatPrice() + " | Start Date : " + trip.getStartDate() + " | End Date : " + trip.getEndDate());
-                displayedID.add(trip.getId());
-            } else if (tripchoice.equalsIgnoreCase("f") && trip instanceof FamilyTrip)
-            {
-                System.out.println("Main tour : " + trip.getMainTour() + " | ID : " + trip.getId() + " | Seat Price : " + trip.getSeatPrice() + " | Start Date : " + trip.getStartDate() + " | End Date : " + trip.getEndDate());
-                  displayedID.add(trip.getId());}
-        }
-        while (true)
-        {
-            String selectedId = Integer.toString(getNumber(0, trips.size()));
-                    if(displayedID.contains(selectedId))
-                        break;
+            System.out.print("Please, enter a valid choice: ");
         }
     }
-
 }
-
-

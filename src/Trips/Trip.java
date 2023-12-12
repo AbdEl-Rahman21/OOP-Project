@@ -7,8 +7,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public abstract class Trip {
+    final int ID;
+
     String mainTour;
-    final String id;
 
     int seatPrice;
     int numberOfSeats;
@@ -22,10 +23,10 @@ public abstract class Trip {
     ArrayList<String> carRentals = new ArrayList<>();
     ArrayList<String> activities = new ArrayList<>();
 
-    private final static Scanner input = new Scanner(System.in);
+    private final static Scanner INPUT = new Scanner(System.in);
 
-    public Trip(String id, String mainTour, int seatPrice, int numberOfSeats, LocalDate endDate, LocalDate startDate) {
-        this.id = id;
+    public Trip(int id, String mainTour, int seatPrice, int numberOfSeats, LocalDate endDate, LocalDate startDate) {
+        this.ID = id;
         this.mainTour = mainTour;
         this.seatPrice = seatPrice;
         this.numberOfSeats = numberOfSeats;
@@ -33,8 +34,8 @@ public abstract class Trip {
         this.startDate = startDate;
     }
 
-    public String getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public String getMainTour() {
@@ -106,7 +107,7 @@ public abstract class Trip {
 
         do {
             System.out.print("\nEnter hotel: ");
-            hotel = input.nextLine();
+            hotel = INPUT.nextLine();
 
             if (hotels.contains(hotel)) {
                 System.out.println("Hotel already exists!");
@@ -115,7 +116,7 @@ public abstract class Trip {
             }
 
             System.out.print("Press (Y) to add another hotel or any other key to exit: ");
-        } while (input.nextLine().equalsIgnoreCase("y"));
+        } while (INPUT.nextLine().equalsIgnoreCase("y"));
     }
 
     public void displayHotels() {
@@ -139,7 +140,7 @@ public abstract class Trip {
 
         do {
             System.out.print("\nEnter flight: ");
-            flight = input.nextLine();
+            flight = INPUT.nextLine();
 
             if (flights.contains(flight)) {
                 System.out.println("Flight already exists!");
@@ -148,7 +149,7 @@ public abstract class Trip {
             }
 
             System.out.print("Press (Y) to add another flight or any other key to exit: ");
-        } while (input.nextLine().equalsIgnoreCase("y"));
+        } while (INPUT.nextLine().equalsIgnoreCase("y"));
     }
 
     public void displayFlights() {
@@ -172,7 +173,7 @@ public abstract class Trip {
 
         do {
             System.out.print("\nEnter car rental: ");
-            carRental = input.nextLine();
+            carRental = INPUT.nextLine();
 
             if (carRentals.contains(carRental)) {
                 System.out.println("Car rental already exists!");
@@ -181,7 +182,7 @@ public abstract class Trip {
             }
 
             System.out.print("Press (Y) to add another car rental or any other key to exit: ");
-        } while (input.nextLine().equalsIgnoreCase("y"));
+        } while (INPUT.nextLine().equalsIgnoreCase("y"));
     }
 
     public void displayCarRentals() {
@@ -205,7 +206,7 @@ public abstract class Trip {
 
         do {
             System.out.print("\nEnter activity: ");
-            activity = input.nextLine();
+            activity = INPUT.nextLine();
 
             if (activities.contains(activity)) {
                 System.out.println("Activity already exists!");
@@ -214,7 +215,7 @@ public abstract class Trip {
             }
 
             System.out.print("Press (Y) to add another activity or any other key to exit: ");
-        } while (input.nextLine().equalsIgnoreCase("y"));
+        } while (INPUT.nextLine().equalsIgnoreCase("y"));
     }
 
     public void displayActivities() {

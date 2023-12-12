@@ -3,29 +3,29 @@ package Tickets;
 import java.util.ArrayList;
 
 public abstract class Ticket {
-    final String tripId;
-    final String id;
+    final int ID;
+    final int TRIP_ID;
 
-    String bookedHotel;
-    String bookedFlight;
-    String bookedCarRental;
+    String bookedHotel = "";
+    String bookedFlight = "";
+    String bookedCarRental = "";
 
     int numberOfBookedSeats;
 
     ArrayList<String> activities = new ArrayList<>();
 
-    public Ticket(String id, String tripId, int numberOfBookedSeats) {
-        this.id = id;
-        this.tripId = tripId;
+    public Ticket(int id, int tripId, int numberOfBookedSeats) {
+        this.ID = id;
+        this.TRIP_ID = tripId;
         this.numberOfBookedSeats = numberOfBookedSeats;
     }
 
-    public String getTripId() {
-        return tripId;
+    public int getID() {
+        return ID;
     }
 
-    public String getId() {
-        return id;
+    public int getTRIP_ID() {
+        return TRIP_ID;
     }
 
     public String getBookedHotel() {
@@ -86,4 +86,3 @@ public abstract class Ticket {
 
     public abstract void displayTicket();
 }
-

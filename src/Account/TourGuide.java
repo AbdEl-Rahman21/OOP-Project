@@ -5,22 +5,24 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 
 public class TourGuide {
+    private final int ID;
+
     private String name;
-    private final String id;
     private String assignedTrip;
-    private static int availableGuides;
+
+    private static int availableGuides = 0;
 
     private ArrayList<LocalDate> tripsMade = new ArrayList<>();
 
-    public TourGuide(String id, String name) {
-        this.id = id;
+    public TourGuide(int id, String name) {
+        this.ID = id;
         this.name = name;
 
         ++availableGuides;
     }
 
-    public String getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public String getName() {
@@ -38,7 +40,7 @@ public class TourGuide {
     public void setAssignTrip(String assignedTrip) {
         if (assignedTrip == null && this.assignedTrip != null) {
             ++availableGuides;
-        } else if (assignedTrip !=null && this.assignedTrip == null) {
+        } else if (assignedTrip != null && this.assignedTrip == null) {
             --availableGuides;
         }
 
@@ -73,7 +75,7 @@ public class TourGuide {
         int counter = 0;
         int dateDifference = 0;
 
-        for (LocalDate tripDate : tripsMade) {
+        for (LocalDate tripDate : getTripsMade()) {
             dateDifference = LocalDate.now().getMonth().compareTo(tripDate.getMonth());
 
             if (dateDifference == 1 || dateDifference == -11) {
@@ -86,9 +88,9 @@ public class TourGuide {
 
     public void displayTourGuide() {
         System.out.println("\nTour Guide Information:-");
-        System.out.println("Id: " + id);
-        System.out.println("Name: " + name);
-        System.out.println("Assigned trip: " + assignedTrip == null ? "Available" : assignedTrip);
+        System.out.println("Id: " + getID());
+        System.out.println("Name: " + getName());
+        System.out.println("Assigned trip: " + (assignedTrip == null ? "Available" : assignedTrip));
         System.out.println("Last Month Salary: " + calculateSalary());
     }
 }

@@ -1,29 +1,33 @@
 package Account;
-import java.util.ArrayList;
+
 import Tickets.*;
+
+import java.util.ArrayList;
+
 public class Customer {
     // Attributes
-    private final String id;
+    private final int ID;
+
     private String name;
     private String email;
     private String phone;
     private String password;
 
-    private int numberOfTrips;
-    // private int birth_date;
-     private ArrayList<Ticket> booked_tickets= new ArrayList();
+    private int numberOfTrips = 0;
 
-    public Customer(String id, String name, String email, String phone, String password) {
-        this.id = id;
+    private ArrayList<Ticket> bookedTickets = new ArrayList<>();
+
+    public Customer(int id, String name, String email, String phone, String password) {
+        this.ID = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
     }
-    
+
     // Getters and Setters
-    public String getId() {
-        return id;
+    public int getID() {
+        return ID;
     }
 
     public String getName() {
@@ -58,24 +62,34 @@ public class Customer {
         this.password = password;
     }
 
-    /*public int getBirth_date() {
-        return birth_date;
+    public int getNumberOfTrips() {
+        return numberOfTrips;
     }
 
-    public void setBirth_date(int birth_date) {
-        this.birth_date = birth_date;
-    }*/
+    public void setNumberOfTrips(int numberOfTrips) {
+        this.numberOfTrips = numberOfTrips;
+    }
+
+    public void setBookedTickets(ArrayList<Ticket> bookedTickets) {
+        this.bookedTickets = bookedTickets;
+    }
+
+    public ArrayList<Ticket> getBookedTickets() {
+        return bookedTickets;
+    }
 
     // Methods
-    public boolean verifyIdentity(String id, String password) {
-        return id.equals(this.id) && password.equals(this.password);
+    public boolean verifyIdentity(int id, String password) {
+        return ID == id && password.equals(this.password);
     }
 
-    public void displayCustomer()
-    {
+    public void displayCustomer() {
         System.out.println("\nCustomer Information:-");
-        System.out.println("Id: " + id + "\nName: " + name + "\nEmail: " + email + "\nPhone: " + phone);
-        System.out.println("Password: " + password + "\nNumber Of Trips: " + numberOfTrips);
+        System.out.println("Id: " + getID());
+        System.out.println("Name: " + getName());
+        System.out.println("Email: " + getEmail());
+        System.out.println("Phone: " + getPhone());
+        System.out.println("Password: " + getPassword());
+        System.out.println("Number Of Trips: " + getNumberOfTrips());
     }
-
 }

@@ -4,21 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="in files">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="Reformat ids and files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Account/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account/Customer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Account/TourGuide.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account/TourGuide.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Files.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tickets/GoldTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/GoldTicket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tickets/PlatinumTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/PlatinumTicket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tickets/SilverTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/SilverTicket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tickets/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trips/CoupleTrip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trips/CoupleTrip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trips/FamilyTrip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trips/FamilyTrip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trips/GeneralTrip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trips/GeneralTrip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trips/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trips/Trip.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +87,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701871092870</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Reformat ids and files">
+      <option name="closed" value="true" />
+      <created>1702422719995</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702422719995</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -116,6 +113,7 @@
     <MESSAGE value="init commit" />
     <MESSAGE value="Add init files" />
     <MESSAGE value="in files" />
-    <option name="LAST_COMMIT_MESSAGE" value="in files" />
+    <MESSAGE value="Reformat ids and files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformat ids and files" />
   </component>
 </project>

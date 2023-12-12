@@ -81,7 +81,11 @@ public class Main {
             System.out.print("Enter password: ");
             password = input.nextLine();
 
-            if (currentPassword != null && currentPassword.equals(password)) {
+            if (password.isEmpty()) {
+                System.out.println("Empty input!");
+
+                continue;
+            } else if (currentPassword != null && currentPassword.equals(password)) {
                 return password;
             }
 
@@ -143,6 +147,8 @@ public class Main {
                 case 1:
                     signUp(); // add customer account
 
+                    user = -1;
+
                     break;
                 case 2:
                     editCustomer();
@@ -157,19 +163,21 @@ public class Main {
 
                     break;
                 case 5:
-                    //addGuide();
+                    addTourGuide();
 
                     break;
                 case 6:
-                    //editGuide();
+                    editTourGuide();
 
                     break;
                 case 7:
-                    //deleteGuide();
+                    int index = selectTourGuide();
+
+                    tourGuides.remove(index);
 
                     break;
                 case 8:
-                    //displayGuide();
+                    tourGuides.get(selectCustomer()).displayTourGuide();
 
                     break;
                 case 9:
@@ -184,6 +192,57 @@ public class Main {
 
             System.out.print("Press (Y) to continue or any other key to exit: ");
         } while (input.nextLine().equalsIgnoreCase("y"));
+    }
+
+    private static void addTourGuide() {
+        int id = 0;
+
+        if (!tourGuides.isEmpty()) {
+            id = tourGuides.get(tourGuides.size() - 1).getID();
+
+            ++id;
+        }
+
+        System.out.println("\nTour Guide ID: " + id);
+
+        System.out.print("Enter name: ");
+        String name = input.nextLine();
+
+        System.out.print("Enter phone number: ");
+        String phone = input.nextLine();
+
+        tourGuides.add(new TourGuide(id, name, phone));
+    }
+
+    private static int selectTourGuide() {
+        if (tourGuides.isEmpty()) {
+            System.out.println("There are no tour guides!");
+        }
+
+        System.out.println("\nSelect a tour guide:-");
+
+        for (int i = 1; i <= tourGuides.size(); ++i) {
+            System.out.println("[" + i + "] Tour Guide ID: " + tourGuides.get(i - 1).getID());
+            System.out.println("\s\s\s\sTour Guide Name: " + tourGuides.get(i - 1).getName());
+        }
+
+        System.out.print("\nEnter your choice: ");
+
+        return getNumber(1, tourGuides.size()) - 1;
+    }
+
+    private static void editTourGuide() {
+        int index = selectTourGuide();
+
+        tourGuides.get(index).displayTourGuide();
+
+        System.out.println("\nEdit Tou Guide Information (Re-enter info you don't want to change):-");
+
+        System.out.print("Enter name: ");
+        tourGuides.get(index).setName(input.nextLine());
+
+        System.out.print("Enter phone number: ");
+        tourGuides.get(index).setPhone(input.nextLine());
     }
 
     private static void addTrip() {

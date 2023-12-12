@@ -8,15 +8,17 @@ public class TourGuide {
     private final int ID;
 
     private String name;
+    private String phone;
     private String assignedTrip;
 
     private static int availableGuides = 0;
 
     private ArrayList<LocalDate> tripsMade = new ArrayList<>();
 
-    public TourGuide(int id, String name) {
+    public TourGuide(int id, String name, String phone) {
         this.ID = id;
         this.name = name;
+        this.phone = phone;
 
         ++availableGuides;
     }
@@ -33,11 +35,19 @@ public class TourGuide {
         this.name = name;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public String getAssignedTrip() {
         return assignedTrip;
     }
 
-    public void setAssignTrip(String assignedTrip) {
+    public void setAssignedTrip(String assignedTrip) {
         if (assignedTrip == null && this.assignedTrip != null) {
             ++availableGuides;
         } else if (assignedTrip != null && this.assignedTrip == null) {
@@ -64,7 +74,7 @@ public class TourGuide {
     }
 
     public void finishTrip(LocalDate tripDate) {
-        setAssignTrip(null);
+        setAssignedTrip(null);
 
         tripsMade.add(tripDate);
 
@@ -90,6 +100,7 @@ public class TourGuide {
         System.out.println("\nTour Guide Information:-");
         System.out.println("Id: " + getID());
         System.out.println("Name: " + getName());
+        System.out.println("Phone Number: " + getPhone());
         System.out.println("Assigned trip: " + (assignedTrip == null ? "Available" : assignedTrip));
         System.out.println("Last Month Salary: " + calculateSalary());
     }

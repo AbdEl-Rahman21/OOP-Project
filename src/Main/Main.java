@@ -14,12 +14,15 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 public class Main {
-    private final static ArrayList<TourGuide> tourGuides = new ArrayList<>();
+    private static int user = -2;  // -1 for admin or customer ID
+
     private static String lastTicketId; // Stored to generate new IDs
+
+    private final static Scanner input = new Scanner(System.in);
+
     private final static ArrayList<Trip> trips = new ArrayList<>();
     private final static ArrayList<Customer> customers = new ArrayList<>();
-    private static int user = -2;  // -1 for admin or customer ID
-    private final static Scanner input = new Scanner(System.in);
+    private final static ArrayList<TourGuide> tourGuides = new ArrayList<>();
 
     public static void main(String[] args) {
         try {
@@ -43,6 +46,14 @@ public class Main {
         } else {
             handleCustomer();
         }
+    }
+
+    private static int welcomeUser() {
+        System.out.println("\t\t\t\tWelcome to the Travel Management System\n\n");
+        System.out.println("Do you want to:-\n[1] Sign Up.\n[2] Log In.\n");
+        System.out.print("Enter your choice: ");
+
+        return getNumber(1, 2);
     }
 
     private static void signUp() {
@@ -72,41 +83,6 @@ public class Main {
         user = id;
     }
 
-    private static String getValidPassword(String currentPassword) {
-        boolean valid;
-
-        String password;
-
-        while (true) {
-            valid = true;
-
-            System.out.print("Enter password: ");
-            password = input.nextLine();
-
-            if (password.isEmpty()) {
-                System.out.println("Empty input!");
-
-                continue;
-            } else if (currentPassword != null && currentPassword.equals(password)) {
-                return password;
-            }
-
-            for (Customer customer : customers) {
-                if (customer.getPassword().equals(password)) {
-                    valid = false;
-
-                    break;
-                }
-            }
-
-            if (valid) {
-                return password;
-            } else {
-                System.out.println("Password already chosen!");
-            }
-        }
-    }
-
     private static void logIn() {
         System.out.print("\nEnter your id: ");
         int id = getNumber(0, customers.get(customers.size() - 1).getID());
@@ -129,75 +105,6 @@ public class Main {
         }
 
         System.out.println("Invalid username or password!");
-    }
-
-    private static int getAdminChoice() {
-        System.out.println("\t\t\t\tWelcome to the Admin Interface\n\n");
-        System.out.println("Do you want to:-\n[1] Add customer account.\n[2] Edit customer account.");
-        System.out.println("[3] Delete customer account.\n[4] Display customer account.");
-        System.out.println("[5] Add tour guide account.\n[6] Edit tour guide account.");
-        System.out.println("[7] Delete tour guide account.\n[8] Display tour guide account.");
-        System.out.println("[9] Add a trip.\n[10] Display a trip.\n");
-        System.out.print("Enter your choice: ");
-
-        return getNumber(1, 10);
-    }
-
-    private static int getCustomerChoice() {
-        System.out.println("\t\t\t\tWelcome to the Customer Interface\n\n");
-        System.out.println("Do you want to:-\n[1] Display account.\n[2] Edit personal information.");
-        System.out.println("[3] Edit travel history.\n[4] Book a trip.\n[5]Display a ticket's information.");
-        System.out.println("[6] Reschedule a booked trip.\n[7] Cancel a booked trip.");
-        System.out.print("Enter your choice: ");
-
-        return getNumber(1, 7);
-    }
-
-    private static void handleCustomer() {
-        do {
-            switch (getCustomerChoice()) {
-                case 1:
-                    customers.get(getCustomerIndex()).displayCustomer();
-
-                    break;
-                case 2:
-                    editCustomer(getCustomerIndex());
-
-                    break;
-                case 3:
-                    // travel history
-
-                    break;
-                case 4:
-                    book();
-
-                    break;
-                case 5:
-                    //display ticket
-
-                    break;
-                case 6:
-                    //reschedule ticket
-
-                    break;
-                case 7:
-                    //cancel ticket
-
-                    break;
-            }
-
-            System.out.print("Press (Y) to continue or any other key to exit: ");
-        } while (input.nextLine().equalsIgnoreCase("y"));
-    }
-
-    public static int getCustomerIndex() {
-        for (int i = 0; i < customers.size(); ++i) {
-            if (customers.get(i).getID() == user) {
-                return i;
-            }
-        }
-
-        return -1;
     }
 
     private static void handleAdmin() {
@@ -251,6 +158,52 @@ public class Main {
 
             System.out.print("Press (Y) to continue or any other key to exit: ");
         } while (input.nextLine().equalsIgnoreCase("y"));
+    }
+
+    private static int getAdminChoice() {
+        System.out.println("\t\t\t\tWelcome to the Admin Interface\n\n");
+        System.out.println("Do you want to:-\n[1] Add customer account.\n[2] Edit customer account.");
+        System.out.println("[3] Delete customer account.\n[4] Display customer account.");
+        System.out.println("[5] Add tour guide account.\n[6] Edit tour guide account.");
+        System.out.println("[7] Delete tour guide account.\n[8] Display tour guide account.");
+        System.out.println("[9] Add a trip.\n[10] Display a trip.\n");
+        System.out.print("Enter your choice: ");
+
+        return getNumber(1, 10);
+    }
+
+    private static int selectCustomer() {
+        if (customers.isEmpty()) {
+            System.out.println("There are no customers!");
+        }
+
+        System.out.println("\nSelect a customer:-");
+
+        for (int i = 1; i <= customers.size(); ++i) {
+            System.out.println("[" + i + "] Customer ID: " + customers.get(i - 1).getID());
+            System.out.println("\s\s\s\sCustomer Name: " + customers.get(i - 1).getName());
+        }
+
+        System.out.print("\nEnter your choice: ");
+
+        return getNumber(1, customers.size()) - 1;
+    }
+
+    private static void editCustomer(int index) {
+        customers.get(index).displayCustomer();
+
+        System.out.println("\nEdit Customer Information (Re-enter info you don't want to change):-");
+
+        System.out.print("Enter name: ");
+        customers.get(index).setName(input.nextLine());
+
+        System.out.print("Enter email: ");
+        customers.get(index).setEmail(input.nextLine());
+
+        System.out.print("Enter phone number: ");
+        customers.get(index).setPhone(input.nextLine());
+
+        customers.get(index).setPassword(getValidPassword(customers.get(index).getPassword()));
     }
 
     private static void addTourGuide() {
@@ -384,102 +337,51 @@ public class Main {
         return getNumber(1, trips.size()) - 1;
     }
 
-    private static int selectCustomer() {
-        if (customers.isEmpty()) {
-            System.out.println("There are no customers!");
-        }
+    private static void handleCustomer() {
+        do {
+            switch (getCustomerChoice()) {
+                case 1:
+                    customers.get(getCustomerIndex()).displayCustomer();
 
-        System.out.println("\nSelect a customer:-");
+                    break;
+                case 2:
+                    editCustomer(getCustomerIndex());
 
-        for (int i = 1; i <= customers.size(); ++i) {
-            System.out.println("[" + i + "] Customer ID: " + customers.get(i - 1).getID());
-            System.out.println("\s\s\s\sCustomer Name: " + customers.get(i - 1).getName());
-        }
+                    break;
+                case 3:
+                    // travel history
 
-        System.out.print("\nEnter your choice: ");
+                    break;
+                case 4:
+                    book();
 
-        return getNumber(1, customers.size()) - 1;
+                    break;
+                case 5:
+                    //display ticket
+
+                    break;
+                case 6:
+                    //reschedule ticket
+
+                    break;
+                case 7:
+                    //cancel ticket
+
+                    break;
+            }
+
+            System.out.print("Press (Y) to continue or any other key to exit: ");
+        } while (input.nextLine().equalsIgnoreCase("y"));
     }
 
-    private static void editCustomer(int index) {
-        customers.get(index).displayCustomer();
-
-        System.out.println("\nEdit Customer Information (Re-enter info you don't want to change):-");
-
-        System.out.print("Enter name: ");
-        customers.get(index).setName(input.nextLine());
-
-        System.out.print("Enter email: ");
-        customers.get(index).setEmail(input.nextLine());
-
-        System.out.print("Enter phone number: ");
-        customers.get(index).setPhone(input.nextLine());
-
-        customers.get(index).setPassword(getValidPassword(customers.get(index).getPassword()));
-    }
-
-    private static int welcomeUser() {
-        System.out.println("\t\t\t\tWelcome to the Travel Management System\n\n");
-        System.out.println("Do you want to:-\n[1] Sign Up.\n[2] Log In.\n");
+    private static int getCustomerChoice() {
+        System.out.println("\t\t\t\tWelcome to the Customer Interface\n\n");
+        System.out.println("Do you want to:-\n[1] Display account.\n[2] Edit personal information.");
+        System.out.println("[3] Edit travel history.\n[4] Book a trip.\n[5]Display a ticket's information.");
+        System.out.println("[6] Reschedule a booked trip.\n[7] Cancel a booked trip.");
         System.out.print("Enter your choice: ");
 
-        return getNumber(1, 2);
-    }
-
-    private static int getNumber(int lowerBound, int upperBound) {
-        int number = 0;
-
-        while (true) {
-            try {
-                while (true) {
-                    number = input.nextInt();
-
-                    input.nextLine();
-
-                    if (number >= lowerBound && number <= upperBound) {
-                        return number;
-                    }
-
-                    System.out.print("Please, enter a valid option options [" + lowerBound + " - " + upperBound + "]: ");
-                }
-            } catch (InputMismatchException e) {
-                System.out.print("Please, enter a number: ");
-
-                input.nextLine();
-            }
-        }
-    }
-
-    private static LocalDate getDate() {
-        LocalDate date;
-        int year = 0;
-        int month = 0;
-        int day = 0;
-
-        while (true) {
-            System.out.print("Enter Year: ");
-            year = getNumber(LocalDate.now().getYear(), LocalDate.now().getYear() + 10);
-
-            System.out.print("Enter Month: ");
-            month = getNumber(1, 12);
-
-            System.out.print("Enter Day: ");
-            day = getNumber(1, 31);
-
-            try {
-                date = LocalDate.of(year, month, day);
-            } catch (DateTimeException e) {
-                System.out.println("Error: Invalid date!");
-
-                continue;
-            }
-
-            if (date.isAfter(LocalDate.now())) {
-                return date;
-            }
-
-            System.out.println("Error: Entered date is before the current date");
-        }
+        return getNumber(1, 7);
     }
 
     private static void book() {
@@ -571,6 +473,108 @@ public class Main {
             }
 
             System.out.print("Please, enter a valid choice: ");
+        }
+    }
+
+    // Utility Methods
+    private static int getNumber(int lowerBound, int upperBound) {
+        int number = 0;
+
+        while (true) {
+            try {
+                while (true) {
+                    number = input.nextInt();
+
+                    input.nextLine();
+
+                    if (number >= lowerBound && number <= upperBound) {
+                        return number;
+                    }
+
+                    System.out.print("Please, enter a valid option options [" + lowerBound + " - " + upperBound + "]: ");
+                }
+            } catch (InputMismatchException e) {
+                System.out.print("Please, enter a number: ");
+
+                input.nextLine();
+            }
+        }
+    }
+
+    private static String getValidPassword(String currentPassword) {
+        boolean valid;
+
+        String password;
+
+        while (true) {
+            valid = true;
+
+            System.out.print("Enter password: ");
+            password = input.nextLine();
+
+            if (password.isEmpty()) {
+                System.out.println("Empty input!");
+
+                continue;
+            } else if (currentPassword != null && currentPassword.equals(password)) {
+                return password;
+            }
+
+            for (Customer customer : customers) {
+                if (customer.getPassword().equals(password)) {
+                    valid = false;
+
+                    break;
+                }
+            }
+
+            if (valid) {
+                return password;
+            } else {
+                System.out.println("Password already chosen!");
+            }
+        }
+    }
+
+    private static int getCustomerIndex() {
+        for (int i = 0; i < customers.size(); ++i) {
+            if (customers.get(i).getID() == user) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private static LocalDate getDate() {
+        LocalDate date;
+        int year = 0;
+        int month = 0;
+        int day = 0;
+
+        while (true) {
+            System.out.print("Enter Year: ");
+            year = getNumber(LocalDate.now().getYear(), LocalDate.now().getYear() + 10);
+
+            System.out.print("Enter Month: ");
+            month = getNumber(1, 12);
+
+            System.out.print("Enter Day: ");
+            day = getNumber(1, 31);
+
+            try {
+                date = LocalDate.of(year, month, day);
+            } catch (DateTimeException e) {
+                System.out.println("Error: Invalid date!");
+
+                continue;
+            }
+
+            if (date.isAfter(LocalDate.now())) {
+                return date;
+            }
+
+            System.out.println("Error: Entered date is before the current date");
         }
     }
 }

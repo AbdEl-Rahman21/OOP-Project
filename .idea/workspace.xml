@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="add tour guide functionality for main">
+    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="add customer menu">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Account/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +101,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702424147480</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add customer menu">
+      <option name="closed" value="true" />
+      <created>1702426274840</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702426274840</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +129,7 @@
     <MESSAGE value="in files" />
     <MESSAGE value="Reformat ids and files" />
     <MESSAGE value="add tour guide functionality for main" />
-    <option name="LAST_COMMIT_MESSAGE" value="add tour guide functionality for main" />
+    <MESSAGE value="add customer menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="add customer menu" />
   </component>
 </project>

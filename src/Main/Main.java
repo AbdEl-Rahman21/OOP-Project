@@ -40,6 +40,8 @@ public class Main {
 
         if (user == -1) {
             handleAdmin();
+        } else {
+            handleCustomer();
         }
     }
 
@@ -141,6 +143,63 @@ public class Main {
         return getNumber(1, 10);
     }
 
+    private static int getCustomerChoice() {
+        System.out.println("\t\t\t\tWelcome to the Customer Interface\n\n");
+        System.out.println("Do you want to:-\n[1] Display account.\n[2] Edit personal information.");
+        System.out.println("[3] Edit travel history.\n[4] Book a trip.\n[5]Display a ticket's information.");
+        System.out.println("[6] Reschedule a booked trip.\n[7] Cancel a booked trip.");
+        System.out.print("Enter your choice: ");
+
+        return getNumber(1, 7);
+    }
+
+    private static void handleCustomer() {
+        do {
+            switch (getCustomerChoice()) {
+                case 1:
+                    customers.get(getCustomerIndex()).displayCustomer();
+
+                    break;
+                case 2:
+                    editCustomer(getCustomerIndex());
+
+                    break;
+                case 3:
+                    // travel history
+
+                    break;
+                case 4:
+                    book();
+
+                    break;
+                case 5:
+                    //display ticket
+
+                    break;
+                case 6:
+                    //reschedule ticket
+
+                    break;
+                case 7:
+                    //cancel ticket
+
+                    break;
+            }
+
+            System.out.print("Press (Y) to continue or any other key to exit: ");
+        } while (input.nextLine().equalsIgnoreCase("y"));
+    }
+
+    public static int getCustomerIndex() {
+        for (int i = 0; i < customers.size(); ++i) {
+            if (customers.get(i).getID() == user) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     private static void handleAdmin() {
         do {
             switch (getAdminChoice()) {
@@ -151,7 +210,7 @@ public class Main {
 
                     break;
                 case 2:
-                    editCustomer();
+                    editCustomer(selectCustomer());
 
                     break;
                 case 3:
@@ -167,7 +226,7 @@ public class Main {
 
                     break;
                 case 6:
-                    editTourGuide();
+                    editTourGuide(selectTourGuide());
 
                     break;
                 case 7:
@@ -231,9 +290,7 @@ public class Main {
         return getNumber(1, tourGuides.size()) - 1;
     }
 
-    private static void editTourGuide() {
-        int index = selectTourGuide();
-
+    private static void editTourGuide(int index) {
         tourGuides.get(index).displayTourGuide();
 
         System.out.println("\nEdit Tou Guide Information (Re-enter info you don't want to change):-");
@@ -344,9 +401,7 @@ public class Main {
         return getNumber(1, customers.size()) - 1;
     }
 
-    private static void editCustomer() {
-        int index = selectCustomer();
-
+    private static void editCustomer(int index) {
         customers.get(index).displayCustomer();
 
         System.out.println("\nEdit Customer Information (Re-enter info you don't want to change):-");
@@ -427,7 +482,7 @@ public class Main {
         }
     }
 
-    public static void Book() {
+    private static void book() {
         String tripChoice;
 
         System.out.print("Enter number of seats to book (1 -> 10): ");
@@ -477,7 +532,7 @@ public class Main {
         int ticketChoice = getNumber(1, 3);
     }
 
-    public static void bookTrip(String tripChoice, int bookedSeats) {
+    private static int bookTrip(String tripChoice, int bookedSeats) {
         String selectedTrip;
 
         ArrayList<String> displayedTrips = new ArrayList<>();
@@ -512,7 +567,7 @@ public class Main {
             selectedTrip = Integer.toString(getNumber(0, trips.get(trips.size() - 1).getID()));
 
             if (displayedTrips.contains(selectedTrip)) {
-                break;
+                return Integer.parseInt(selectedTrip);
             }
 
             System.out.print("Please, enter a valid choice: ");

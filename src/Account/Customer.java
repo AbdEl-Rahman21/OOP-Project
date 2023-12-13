@@ -11,7 +11,7 @@ public class Customer {
     private String name;
     private String email;
     private String phone;
-    private String password;
+    private String password; // maybe add preferences
 
     private int numberOfTrips = 0;
 

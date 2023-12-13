@@ -70,12 +70,18 @@ public class Customer {
         this.numberOfTrips = numberOfTrips;
     }
 
+    public ArrayList<Ticket> getBookedTickets() {
+        return bookedTickets;
+    }
+
     public void setBookedTickets(ArrayList<Ticket> bookedTickets) {
         this.bookedTickets = bookedTickets;
     }
 
-    public ArrayList<Ticket> getBookedTickets() {
-        return bookedTickets;
+    public void addTicket(Ticket ticket) {
+        bookedTickets.add(ticket);
+
+        // add voucher
     }
 
     // Methods

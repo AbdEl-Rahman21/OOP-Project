@@ -3,10 +3,15 @@ package Trips;
 import java.time.LocalDate;
 
 public class FamilyTrip extends Trip {
-    private final String[] mainFeatures = {"Kid-Friendly Activities", "Family-Friendly Accommodations", "Educational Tours"};
+    private static final String[] mainFeatures = {"Kid-Friendly Activities", "Family-Friendly Accommodations",
+            "Educational Tours"};
 
     public FamilyTrip(int id, String mainTour, int seatPrice, int numberOfSeats, LocalDate endDate, LocalDate startDate) {
         super(id, mainTour, seatPrice, numberOfSeats, endDate, startDate);
+    }
+
+    public static String[] getMainFeatures() {
+        return mainFeatures;
     }
 
     @Override

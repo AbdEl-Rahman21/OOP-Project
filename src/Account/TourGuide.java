@@ -9,7 +9,8 @@ public class TourGuide {
 
     private String name;
     private String phone;
-    private String assignedTrip;
+
+    int assignedTrip = -1;
 
     private static int availableGuides = 0;
 
@@ -43,14 +44,14 @@ public class TourGuide {
         this.phone = phone;
     }
 
-    public String getAssignedTrip() {
+    public int getAssignedTrip() {
         return assignedTrip;
     }
 
-    public void setAssignedTrip(String assignedTrip) {
-        if (assignedTrip == null && this.assignedTrip != null) {
+    public void setAssignedTrip(int assignedTrip) {
+        if (assignedTrip == -1 && this.assignedTrip != -1) {
             ++availableGuides;
-        } else if (assignedTrip != null && this.assignedTrip == null) {
+        } else if (assignedTrip != -1 && this.assignedTrip == -1) {
             --availableGuides;
         }
 
@@ -74,12 +75,12 @@ public class TourGuide {
     }
 
     public void finishTrip(LocalDate tripDate) {
-        setAssignedTrip(null);
+        setAssignedTrip(-1);
 
         tripsMade.add(tripDate);
 
         ++availableGuides;
-    }
+    } // when loading data
 
     public int calculateSalary() {
         int counter = 0;
@@ -101,7 +102,7 @@ public class TourGuide {
         System.out.println("Id: " + getID());
         System.out.println("Name: " + getName());
         System.out.println("Phone Number: " + getPhone());
-        System.out.println("Assigned trip: " + (assignedTrip == null ? "Available" : assignedTrip));
+        System.out.println("Assigned trip: " + (getAssignedTrip() == -1 ? "Available" :getAssignedTrip()));
         System.out.println("Last Month Salary: " + calculateSalary());
     }
 }

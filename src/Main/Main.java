@@ -80,11 +80,13 @@ public class Main {
         customers.add(new Customer(id, name, email, phone, password));
 
         user = customers.size() - 1;
+
+        customers.get(user).addPreferences();
     }
 
     private static void logIn() {
         System.out.print("\nEnter your id: ");
-        int id = getNumber(0, customers.get(customers.size() - 1).getID());
+        int id = getNumber(-1, customers.isEmpty() ? 0 : customers.get(customers.size() - 1).getID());
 
         System.out.print("Enter your password: ");
         String password = input.nextLine();
@@ -107,6 +109,8 @@ public class Main {
     }
 
     private static void handleAdmin() {
+        int index = 0;
+
         do {
             switch (getAdminChoice()) {
                 case 1:
@@ -116,15 +120,27 @@ public class Main {
 
                     break;
                 case 2:
-                    editCustomer(selectCustomer());
+                    index = selectCustomer();
+
+                    if (!(index == -1)) {
+                        editCustomer(index);
+                    }
 
                     break;
                 case 3:
-                    deleteCustomer(selectCustomer());
+                    index = selectCustomer();
+
+                    if (!(index == -1)) {
+                        deleteCustomer(index);
+                    }
 
                     break;
                 case 4:
-                    customers.get(selectCustomer()).displayCustomer();
+                    index = selectCustomer();
+
+                    if (!(index == -1)) {
+                        customers.get(index).displayCustomer();
+                    }
 
                     break;
                 case 5:
@@ -132,17 +148,27 @@ public class Main {
 
                     break;
                 case 6:
-                    editTourGuide(selectTourGuide());
+                    index = selectTourGuide();
+
+                    if (!(index == -1)) {
+                        editTourGuide(index);
+                    }
 
                     break;
                 case 7:
-                    int index = selectTourGuide();
+                    index = selectTourGuide();
 
-                    tourGuides.remove(index);
+                    if (!(index == -1)) {
+                        tourGuides.remove(index);
+                    }
 
                     break;
                 case 8:
-                    tourGuides.get(selectCustomer()).displayTourGuide();
+                    index = selectTourGuide();
+
+                    if (!(index == -1)) {
+                        tourGuides.get(index).displayTourGuide();
+                    }
 
                     break;
                 case 9:
@@ -150,7 +176,23 @@ public class Main {
 
                     break;
                 case 10:
-                    trips.get(selectTrip()).displayTrip();
+                    index = selectTrip();
+
+                    if (!(index == -1)) {
+                        trips.get(index).displayTrip();
+                    }
+
+                    break;
+                case 11:
+                    index = selectTourGuide();
+
+                    if (!(index == -1)) {
+                        assignTrip(index);
+                    }
+
+                    break;
+                case 12:
+                    System.out.println("Number of Available Tour Guides: " + TourGuide.getAvailableGuides());
 
                     break;
             }
@@ -165,15 +207,18 @@ public class Main {
         System.out.println("[3] Delete customer account.\n[4] Display customer account.");
         System.out.println("[5] Add tour guide account.\n[6] Edit tour guide account.");
         System.out.println("[7] Delete tour guide account.\n[8] Display tour guide account.");
-        System.out.println("[9] Add a trip.\n[10] Display a trip.\n");
+        System.out.println("[9] Add a trip.\n[10] Display a trip.\n[11]Assign trip to tour guide.");
+        System.out.println("[12] Display number of available tour guides.");
         System.out.print("Enter your choice: ");
 
-        return getNumber(1, 10);
+        return getNumber(1, 11);
     }
 
     private static int selectCustomer() {
         if (customers.isEmpty()) {
             System.out.println("There are no customers!");
+
+            return -1;
         }
 
         System.out.println("\nSelect a customer:-");
@@ -203,6 +248,8 @@ public class Main {
         customers.get(index).setPhone(input.nextLine());
 
         customers.get(index).setPassword(getValidPassword(customers.get(index).getPassword()));
+
+        customers.get(index).addPreferences();
     }
 
     private static void deleteCustomer(int index) {
@@ -242,6 +289,8 @@ public class Main {
     private static int selectTourGuide() {
         if (tourGuides.isEmpty()) {
             System.out.println("There are no tour guides!");
+
+            return -1;
         }
 
         System.out.println("\nSelect a tour guide:-");
@@ -336,6 +385,8 @@ public class Main {
     private static int selectTrip() {
         if (trips.isEmpty()) {
             System.out.println("There are no trips!");
+
+            return -1;
         }
 
         System.out.println("\nSelect a trip:-");
@@ -350,6 +401,20 @@ public class Main {
         return getNumber(1, trips.size()) - 1;
     }
 
+    private static void assignTrip(int tourGuideIndex) {
+        System.out.print("Assign to a trip [1] or remove current trip [2]: ");
+
+        if(getNumber(1, 2) == 1) {
+            int index = selectTrip();
+
+            if (!(index == -1)) {
+                tourGuides.get(tourGuideIndex).setAssignedTrip(trips.get(index).getID());
+            }
+        } else {
+            tourGuides.get(tourGuideIndex).setAssignedTrip(-1);
+        }
+    }
+
     private static void handleCustomer() {
         do {
             switch (getCustomerChoice()) {
@@ -362,7 +427,7 @@ public class Main {
 
                     break;
                 case 3:
-                    // travel history
+                    customers.get(user).displayTravelHistory(trips);
 
                     break;
                 case 4:
@@ -370,7 +435,7 @@ public class Main {
 
                     break;
                 case 5:
-                    // cancel ticket
+                    cancelTicket();
 
                     break;
             }
@@ -404,6 +469,10 @@ public class Main {
         handlePayment(bookedSeats, tripIndex, ticket);
 
         customers.get(user).addTicket(ticket);
+
+        customers.get(user).setNumberOfTrips(customers.get(user).getNumberOfTrips() + 1);
+
+        ticket.displayTicket();
     }
 
     private static int getTripTypeChoice(int bookedSeats) {
@@ -640,6 +709,37 @@ public class Main {
         ticket.setPrice(price);
 
         System.out.println("Total Price: " + price);
+    }
+
+    private static void cancelTicket() {
+        int ticketId = 0;
+
+        System.out.print("Enter ticket ID to cancel trip: ");
+
+        while (true) {
+            ticketId = getNumber(0, customers.get(user).getBookedTickets().
+                    get(customers.get(user).getBookedTickets().size() - 1).getID());
+
+            for (Trip trip : trips) {
+                if (ticketId == trip.getID()) {
+                    if (trip.getStartDate().isAfter(LocalDate.now())) {
+                        trip.setNumberOfBookedSeats(trip.getNumberOfBookedSeats() -
+                                customers.get(user).getBookedTickets().get(ticketId).getNumberOfBookedSeats());
+
+                        System.out.println("Refund: " + customers.get(user).getBookedTickets().get(ticketId).getPrice());
+                    }
+
+                    customers.get(user).removeTicket(customers.get(user).getBookedTickets().get(ticketId));
+
+                    System.out.println("Ticket Deleted!");
+
+                    return;
+                }
+            }
+
+            System.out.println("Error: Invalid ticket ID!");
+            System.out.print("Please, enter a valid ID: ");
+        }
     }
 
     // Utility Methods

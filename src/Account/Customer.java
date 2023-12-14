@@ -1,7 +1,10 @@
 package Account;
 
-import Tickets.*;
 import Trips.*;
+
+import Tickets.*;
+
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Customer {
@@ -12,9 +15,10 @@ public class Customer {
     private String email;
     private String phone;
     private String password;
-    private String preferences;
+
     private int numberOfTrips = 0;
 
+    private ArrayList<String> preferences = new ArrayList<>();
     private ArrayList<Ticket> bookedTickets = new ArrayList<>();
 
     public Customer(int id, String name, String email, String phone, String password) {
@@ -80,14 +84,17 @@ public class Customer {
 
     public void addTicket(Ticket ticket) {
         bookedTickets.add(ticket);
-
-        // add voucher
     }
-    public String getPreferences() {
+
+    public void removeTicket(Ticket ticket) {
+        bookedTickets.remove(ticket);
+    }
+
+    public ArrayList<String> getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(String preferences) {
+    public void setPreferences(ArrayList<String> preferences) {
         this.preferences = preferences;
     }
 
@@ -104,47 +111,63 @@ public class Customer {
         System.out.println("Phone: " + getPhone());
         System.out.println("Password: " + getPassword());
         System.out.println("Number Of Trips: " + getNumberOfTrips());
-        System.out.println("Preferences : "+ getPreferences());
+
+        displayPreferences();
     }
-    public void tripsHistory(ArrayList<Trip> trips)
-    {
-        System.out.println("Trips History:-");
-        for (Ticket tickets:bookedTickets)
-        {
-            System.out.println(tickets.getTRIP_ID());
-            for (Trip trip:trips)
-            {
-                if (tickets.getTRIP_ID() == trip.getID())
-                {
-                    System.out.println(trip.getMainTour());
-                    System.out.println(trip.getStartDate());
-                    System.out.println(trip.getEndDate());
+
+    public void displayTravelHistory(ArrayList<Trip> trips) {
+        System.out.println("\nTravel History:-");
+
+        for (Ticket ticket : getBookedTickets()) {
+            System.out.println("Ticket ID: " + ticket.getID());
+
+            for (Trip trip : trips) {
+                if (ticket.getTRIP_ID() == trip.getID()) {
+                    System.out.println("Trip ID: " + trip.getID());
+                    System.out.println("Main Tour: " + trip.getMainTour());
+                    System.out.println("Start Date: " + trip.getStartDate());
+                    System.out.println("End Date: " + trip.getEndDate());
+
+                    break;
                 }
             }
-            System.out.println(tickets.getprice());
-            System.out.println(tickets.getNumberOfBookedSeats());
-            System.out.println(tickets.getBookedFlight());
-            System.out.println(tickets.getBookedCarRental());
-            for (String activities:tickets.getActivities())
-                System.out.println(activities);
 
+            System.out.println("Ticket Price: " + ticket.getPrice());
+            System.out.println("Booked Seats: " + ticket.getNumberOfBookedSeats());
+            System.out.println("Booked Hotel: " + ticket.getBookedHotel());
+            System.out.println("Booked Flight: " + ticket.getBookedFlight());
+            System.out.println("Booked Car Rental: " + ticket.getBookedCarRental());
+
+            ticket.displayBookedActivities();
         }
     }
-    public void addpreferences()
-    {
-        String preferences;
+
+    public void addPreferences() {
+        preferences.clear();
+
+        String preference;
+
+        Scanner INPUT = new Scanner(System.in);
 
         do {
             System.out.print("\nEnter preferences: ");
-            preferences = INPUT.nextLine();
+            preference = INPUT.nextLine();
 
-            if (preferences.contains(preferences)) {
-                System.out.println("preferences already exists!");
+            if (preferences.contains(preference)) {
+                System.out.println("Preferences already exists!");
             } else {
-                preferences.add(preferences);
+                preferences.add(preference);
             }
 
-            System.out.print("Press (Y) to add another preferences or any other key to exit: ");
+            System.out.print("Press (Y) to add another preference or any other key to exit: ");
         } while (INPUT.nextLine().equalsIgnoreCase("y"));
+    }
+
+    public void displayPreferences() {
+        System.out.println("\nPreferences:-");
+
+        for (int i = 1; i <= preferences.size(); ++i) {
+            System.out.println("[" + i + "] " + preferences.get(i - 1) + ".");
+        }
     }
 }

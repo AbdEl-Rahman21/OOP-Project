@@ -26,6 +26,7 @@ public class PlatinumTicket extends Ticket {
         System.out.println("Ticket Type: Platinum");
         System.out.println("Ticket ID: " + getID());
         System.out.println("Trip ID: " + getTRIP_ID());
+        System.out.println("Ticket Price: " + getPrice());
         System.out.println("Ticket Voucher (Next Trip): 10%");
         System.out.println("Number Of Booked Seats: " + getNumberOfBookedSeats());
         System.out.println("Booked Features: " + bookedFeatures[0] + " - " + bookedFeatures[1] + " - " +

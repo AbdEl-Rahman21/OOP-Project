@@ -22,6 +22,7 @@ public class SilverTicket extends Ticket {
         System.out.println("Ticket Type: Silver");
         System.out.println("Ticket ID: " + getID());
         System.out.println("Trip ID: " + getTRIP_ID());
+        System.out.println("Ticket Price: " + getPrice());
         System.out.println("Number Of Booked Seats: " + getNumberOfBookedSeats());
         System.out.println("Booked Features: " + getBookedFeatures());
         System.out.println("Booked Hotel: " + getBookedHotel());

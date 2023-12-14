@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="add booking functionality">
+    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="Reformat main">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Account/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Files.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tickets/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/Ticket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -28,6 +29,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -129,15 +133,7 @@
       <option name="project" value="LOCAL" />
       <updated>1702492533403</updated>
     </task>
-    <task id="LOCAL-00008" summary="add booking functionality">
-      <option name="closed" value="true" />
-      <created>1702504048947</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1702504048947</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,7 +155,6 @@
     <MESSAGE value="add tour guide functionality for main" />
     <MESSAGE value="add customer menu" />
     <MESSAGE value="Reformat main" />
-    <MESSAGE value="add booking functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="add booking functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Reformat main" />
   </component>
 </project>

@@ -1,7 +1,7 @@
 package Account;
 
 import Tickets.*;
-
+import Trips.*;
 import java.util.ArrayList;
 
 public class Customer {
@@ -12,7 +12,7 @@ public class Customer {
     private String email;
     private String phone;
     private String password;
-
+    private String preferences;
     private int numberOfTrips = 0;
 
     private ArrayList<Ticket> bookedTickets = new ArrayList<>();
@@ -80,6 +80,15 @@ public class Customer {
 
     public void addTicket(Ticket ticket) {
         bookedTickets.add(ticket);
+
+        // add voucher
+    }
+    public String getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(String preferences) {
+        this.preferences = preferences;
     }
 
     // Methods
@@ -95,5 +104,47 @@ public class Customer {
         System.out.println("Phone: " + getPhone());
         System.out.println("Password: " + getPassword());
         System.out.println("Number Of Trips: " + getNumberOfTrips());
+        System.out.println("Preferences : "+ getPreferences());
+    }
+    public void tripsHistory(ArrayList<Trip> trips)
+    {
+        System.out.println("Trips History:-");
+        for (Ticket tickets:bookedTickets)
+        {
+            System.out.println(tickets.getTRIP_ID());
+            for (Trip trip:trips)
+            {
+                if (tickets.getTRIP_ID() == trip.getID())
+                {
+                    System.out.println(trip.getMainTour());
+                    System.out.println(trip.getStartDate());
+                    System.out.println(trip.getEndDate());
+                }
+            }
+            System.out.println(tickets.getprice());
+            System.out.println(tickets.getNumberOfBookedSeats());
+            System.out.println(tickets.getBookedFlight());
+            System.out.println(tickets.getBookedCarRental());
+            for (String activities:tickets.getActivities())
+                System.out.println(activities);
+
+        }
+    }
+    public void addpreferences()
+    {
+        String preferences;
+
+        do {
+            System.out.print("\nEnter preferences: ");
+            preferences = INPUT.nextLine();
+
+            if (preferences.contains(preferences)) {
+                System.out.println("preferences already exists!");
+            } else {
+                preferences.add(preferences);
+            }
+
+            System.out.print("Press (Y) to add another preferences or any other key to exit: ");
+        } while (INPUT.nextLine().equalsIgnoreCase("y"));
     }
 }

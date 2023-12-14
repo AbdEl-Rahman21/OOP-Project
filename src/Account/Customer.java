@@ -11,7 +11,7 @@ public class Customer {
     private String name;
     private String email;
     private String phone;
-    private String password; // maybe add preferences
+    private String password;
 
     private int numberOfTrips = 0;
 
@@ -80,8 +80,6 @@ public class Customer {
 
     public void addTicket(Ticket ticket) {
         bookedTickets.add(ticket);
-
-        // add voucher
     }
 
     // Methods

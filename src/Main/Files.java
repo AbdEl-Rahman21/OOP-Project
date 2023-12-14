@@ -21,7 +21,7 @@ public class Files {
     public final static File tripFile = new File("trips.txt");
     public final static File ticketFile = new File("tickets.txt");
 
-    public static void saveCustomers(ArrayList<Customer> customers) {
+    public static void saveCustomers(ArrayList<Customer> customers) { // preferences and bookedTickets
         try {
             FileWriter myWriter = new FileWriter(customerFile);
 
@@ -186,7 +186,7 @@ public class Files {
         }
     }
 
-    public static void saveTickets(ArrayList<Ticket> tickets) {
+    public static void saveTickets(ArrayList<Ticket> tickets) { // price
         try {
             int bookedFeaturesSize = 0;
 

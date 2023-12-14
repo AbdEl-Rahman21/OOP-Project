@@ -120,7 +120,7 @@ public class Main {
 
                     break;
                 case 3:
-                    // deleteCustomer(); // reset trip seats
+                    deleteCustomer(selectCustomer());
 
                     break;
                 case 4:
@@ -203,6 +203,20 @@ public class Main {
         customers.get(index).setPhone(input.nextLine());
 
         customers.get(index).setPassword(getValidPassword(customers.get(index).getPassword()));
+    }
+
+    private static void deleteCustomer(int index) {
+        for (Ticket ticket : customers.get(index).getBookedTickets()) {
+            for (Trip trip : trips) {
+                if (trip.getStartDate().isAfter(LocalDate.now()) && ticket.getTRIP_ID() == trip.getID()) {
+                    trip.setNumberOfBookedSeats(trip.getNumberOfBookedSeats() - ticket.getNumberOfBookedSeats());
+
+                    break;
+                }
+            }
+        }
+
+        customers.remove(index);
     }
 
     private static void addTourGuide() {
@@ -356,15 +370,7 @@ public class Main {
 
                     break;
                 case 5:
-                    //display ticket
-
-                    break;
-                case 6:
-                    //reschedule ticket
-
-                    break;
-                case 7:
-                    //cancel ticket
+                    // cancel ticket
 
                     break;
             }
@@ -376,11 +382,10 @@ public class Main {
     private static int getCustomerChoice() {
         System.out.println("\t\t\t\tWelcome to the Customer Interface\n\n");
         System.out.println("Do you want to:-\n[1] Display account.\n[2] Edit personal information.");
-        System.out.println("[3] Edit travel history.\n[4] Book a trip.\n[5]Display a ticket's information.");
-        System.out.println("[6] Reschedule a booked trip.\n[7] Cancel a booked trip.");
+        System.out.println("[3] Display travel history.\n[4] Book a trip.\n[5] Cancel a booked trip.");
         System.out.print("Enter your choice: ");
 
-        return getNumber(1, 7);
+        return getNumber(1, 5);
     }
 
     private static void book() {
@@ -469,6 +474,8 @@ public class Main {
             if (displayedTrips.contains(selectedTrip)) {
                 for (Trip trip : trips) {
                     if (trip.getID() == Integer.parseInt(selectedTrip)) {
+                        trip.setNumberOfBookedSeats(trip.getNumberOfBookedSeats() + bookedSeats);
+
                         return trips.indexOf(trip);
                     }
                 }
@@ -571,37 +578,68 @@ public class Main {
     private static void handlePayment(int bookedSeats, int tripIndex, Ticket ticket) {
         float price = 0f;
 
+        Ticket lastTicket = customers.get(user).getBookedTickets().get(customers.get(user).getBookedTickets().size() - 1);
+
         price += trips.get(tripIndex).getSeatPrice() * bookedSeats;
+        System.out.println("Trip Price: " + price);
 
         if (ticket instanceof SilverTicket) {
             price += 100;
+
+            System.out.println("Ticket Price: " + 100);
         } else if (ticket instanceof GoldTicket) {
             price += 250;
+
+            System.out.println("Ticket Price: " + 250);
         } else {
             price += 400;
+
+            System.out.println("Ticket Price: " + 400);
         }
 
         if (!ticket.getBookedHotel().isEmpty()) {
             price += 100;
+
+            System.out.println("Hotel Price: " + 100);
         }
 
         if (!ticket.getBookedFlight().isEmpty()) {
             price += 100;
+
+            System.out.println("Flight Price: " + 100);
         }
 
         if (!ticket.getBookedCarRental().isEmpty() && !(ticket instanceof PlatinumTicket)) {
             price += 100;
+
+            System.out.println("Car Rental Price: " + 100);
         }
 
         if (!ticket.getActivities().isEmpty()) {
             price += ticket.getActivities().size() * 50;
+
+            System.out.println("Activities Price: " + ticket.getActivities().size() * 50);
         }
 
-        // voucher
+        if (lastTicket instanceof GoldTicket) {
+            price -= price * 0.05f;
 
-        // discount
+            System.out.println("Voucher Discount 5%");
+        } else if (lastTicket instanceof PlatinumTicket) {
+            price -= price * 0.1f;
 
-        System.out.println("Please pay: " + price);
+            System.out.println("Voucher Discount 10%");
+        }
+
+        if (customers.get(user).getBookedTickets().size() >= 2) {
+            price -= price * 0.02f;
+
+            System.out.println("Repeat Customer Discount 2%");
+        }
+
+        ticket.setPrice(price);
+
+        System.out.println("Total Price: " + price);
     }
 
     // Utility Methods

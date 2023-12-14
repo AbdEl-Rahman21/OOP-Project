@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="Reformat main">
+    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="add booking functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Account/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Files.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trips/CoupleTrip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trips/CoupleTrip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trips/FamilyTrip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trips/FamilyTrip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trips/GeneralTrip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trips/GeneralTrip.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tickets/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/Ticket.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,20 +38,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Abd El-Rahman Ali/IdeaProjects/OOP-Project",
-    "onboarding.tips.debug.path": "C:/Users/Abd El-Rahman Ali/IdeaProjects/OOP-Project/src/Main.java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Abd El-Rahman Ali/IdeaProjects/OOP-Project&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Abd El-Rahman Ali/IdeaProjects/OOP-Project/src/Main.java&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Abd El-Rahman Ali\IdeaProjects\OOP-Project" />
@@ -130,7 +129,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702492533403</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="add booking functionality">
+      <option name="closed" value="true" />
+      <created>1702504048947</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702504048947</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -152,6 +159,7 @@
     <MESSAGE value="add tour guide functionality for main" />
     <MESSAGE value="add customer menu" />
     <MESSAGE value="Reformat main" />
-    <option name="LAST_COMMIT_MESSAGE" value="Reformat main" />
+    <MESSAGE value="add booking functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="add booking functionality" />
   </component>
 </project>

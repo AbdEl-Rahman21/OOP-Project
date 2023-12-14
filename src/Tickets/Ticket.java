@@ -6,6 +6,8 @@ public abstract class Ticket {
     final int ID;
     final int TRIP_ID;
 
+    float price = 0f;
+
     String bookedHotel = "";
     String bookedFlight = "";
     String bookedCarRental = "";
@@ -26,6 +28,14 @@ public abstract class Ticket {
 
     public int getTRIP_ID() {
         return TRIP_ID;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
     }
 
     public String getBookedHotel() {

@@ -20,6 +20,7 @@ public class Files {
     public final static File customerFile = new File("customers.txt");
     public final static File tripFile = new File("trips.txt");
     public final static File ticketFile = new File("tickets.txt");
+    public final static File tourGuideFile = new File("tour guide.txt");
 
     public static void saveCustomers(int lastTicketId, ArrayList<Customer> customers) {
         try {
@@ -368,6 +369,65 @@ public class Files {
             System.out.println(e.getMessage());
         }
     }
+
+    public static void saveTourGuide( ArrayList<TourGuide> tour_guide) {
+        try {
+            FileWriter myWriter = new FileWriter(tourGuideFile);
+            for (TourGuide guide : tour_guide) {
+                myWriter.write(guide.getID() + "\n");
+                myWriter.write(guide.getName() + "\n");
+                myWriter.write(guide.getPhone() + "\n");
+                myWriter.write(guide.getAvailableGuides() + "\n");
+                myWriter.write(guide.getAssignedTrip() + "\n");
+                myWriter.write(guide.getTripsMade().size() + "\n");
+
+                for (LocalDate trip : guide.getTripsMade())
+                {
+                    myWriter.write(trip + "\n");
+                }
+
+            }
+
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error: Can not save tour guide data.");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void loadTourGuide(ArrayList<TourGuide> guide) {
+        int size;
+
+
+        ArrayList<LocalDate> temp = new ArrayList<>();
+
+        try {
+            Scanner myReader = new Scanner(tourGuideFile);
+
+
+            while (myReader.hasNextLine()) {
+                guide.add(new TourGuide(Integer.parseInt(myReader.nextLine()), myReader.nextLine(), myReader.nextLine()));
+
+
+                size = Integer.parseInt(myReader.nextLine());
+
+                for (int j = 0; j < size; ++j) {
+                    temp.add(LocalDate.parse(myReader.nextLine()));
+                }
+
+                guide.get(guide.size() - 1).setTripsMade(temp);
+                temp.clear();
+
+            }
+
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Can not tour guide customer data.");
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
     public static String[] readArray(int size, Scanner myReader) {
         String[] array = new String[size];

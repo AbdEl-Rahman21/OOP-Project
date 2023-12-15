@@ -18,8 +18,8 @@ public class Customer {
 
     private int numberOfTrips = 0;
 
-    private ArrayList<String> preferences = new ArrayList<>();
-    private ArrayList<Ticket> bookedTickets = new ArrayList<>();
+    final private ArrayList<String> preferences = new ArrayList<>();
+    final private ArrayList<Ticket> bookedTickets = new ArrayList<>();
 
     public Customer(int id, String name, String email, String phone, String password) {
         this.ID = id;
@@ -79,7 +79,7 @@ public class Customer {
     }
 
     public void setBookedTickets(ArrayList<Ticket> bookedTickets) {
-        this.bookedTickets = bookedTickets;
+        this.bookedTickets.addAll(bookedTickets);
     }
 
     public void addTicket(Ticket ticket) {
@@ -95,7 +95,7 @@ public class Customer {
     }
 
     public void setPreferences(ArrayList<String> preferences) {
-        this.preferences = preferences;
+        this.preferences.addAll(preferences);
     }
 
     // Methods

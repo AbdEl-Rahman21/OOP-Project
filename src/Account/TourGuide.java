@@ -14,7 +14,7 @@ public class TourGuide {
 
     private static int availableGuides = 0;
 
-    private ArrayList<LocalDate> tripsMade = new ArrayList<>();
+    final private ArrayList<LocalDate> tripsMade = new ArrayList<>();
 
     public TourGuide(int id, String name, String phone) {
         this.ID = id;
@@ -71,7 +71,7 @@ public class TourGuide {
     }
 
     public void setTripsMade(ArrayList<LocalDate> tripsMade) {
-        this.tripsMade = tripsMade;
+        this.tripsMade.addAll(tripsMade);
     }
 
     public void finishTrip(LocalDate tripDate) {

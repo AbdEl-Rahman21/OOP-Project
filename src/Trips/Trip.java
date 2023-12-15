@@ -18,10 +18,10 @@ public abstract class Trip {
     LocalDate endDate;
     LocalDate startDate;
 
-    ArrayList<String> hotels = new ArrayList<>();
-    ArrayList<String> flights = new ArrayList<>();
-    ArrayList<String> carRentals = new ArrayList<>();
-    ArrayList<String> activities = new ArrayList<>();
+    final ArrayList<String> hotels = new ArrayList<>();
+    final ArrayList<String> flights = new ArrayList<>();
+    final ArrayList<String> carRentals = new ArrayList<>();
+    final ArrayList<String> activities = new ArrayList<>();
 
     private final static Scanner INPUT = new Scanner(System.in);
 
@@ -99,7 +99,7 @@ public abstract class Trip {
     }
 
     public void setHotels(ArrayList<String> hotels) {
-        this.hotels = hotels;
+        this.hotels.addAll(hotels);
     }
 
     public void addHotels() {
@@ -132,7 +132,7 @@ public abstract class Trip {
     }
 
     public void setFlights(ArrayList<String> flights) {
-        this.flights = flights;
+        this.flights.addAll(flights);
     }
 
     public void addFlights() {
@@ -165,7 +165,7 @@ public abstract class Trip {
     }
 
     public void setCarRentals(ArrayList<String> carRentals) {
-        this.carRentals = carRentals;
+        this.carRentals.addAll(carRentals);
     }
 
     public void addCarRentals() {
@@ -198,7 +198,7 @@ public abstract class Trip {
     }
 
     public void setActivities(ArrayList<String> activities) {
-        this.activities = activities;
+        this.activities.addAll(activities);
     }
 
     public void addActivities() {

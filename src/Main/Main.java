@@ -32,6 +32,10 @@ public class Main {
     }
 
     private static void run() {
+        Files.loadTrips(trips);
+
+        lastTicketId = Files.loadCustomers(customers);
+
         do {
             if (welcomeUser() == 1) {
                 signUp();
@@ -45,6 +49,9 @@ public class Main {
         } else {
             handleCustomer();
         }
+
+        Files.saveTrips(trips);
+        Files.saveCustomers(lastTicketId, customers);
     }
 
     private static int welcomeUser() {
@@ -207,7 +214,7 @@ public class Main {
         System.out.println("[3] Delete customer account.\n[4] Display customer account.");
         System.out.println("[5] Add tour guide account.\n[6] Edit tour guide account.");
         System.out.println("[7] Delete tour guide account.\n[8] Display tour guide account.");
-        System.out.println("[9] Add a trip.\n[10] Display a trip.\n[11]Assign trip to tour guide.");
+        System.out.println("[9] Add a trip.\n[10] Display a trip.\n[11] Assign trip to tour guide.");
         System.out.println("[12] Display number of available tour guides.");
         System.out.print("Enter your choice: ");
 
@@ -353,7 +360,7 @@ public class Main {
         }
 
         while (true) {
-            System.out.println("Enter Trip Type ('g' for general - 'c' couple - 'f' family): ");
+            System.out.print("Enter Trip Type ('g' for general - 'c' couple - 'f' family): ");
             switch (input.nextLine().toLowerCase()) {
                 case "g":
                     trips.add(new GeneralTrip(id, mainTour, seatPrice, numberOfSeats, endDate, startDate));

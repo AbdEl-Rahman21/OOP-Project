@@ -1,0 +1,10 @@
+0
+0
+customer1
+a@b.c
+123
+123
+0
+2
+pref1
+pref2

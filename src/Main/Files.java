@@ -21,9 +21,11 @@ public class Files {
     public final static File tripFile = new File("trips.txt");
     public final static File ticketFile = new File("tickets.txt");
 
-    public static void saveCustomers(ArrayList<Customer> customers) { // preferences and bookedTickets
+    public static void saveCustomers(int lastTicketId, ArrayList<Customer> customers) {
         try {
             FileWriter myWriter = new FileWriter(customerFile);
+
+            myWriter.write(lastTicketId + "\n");
 
             for (Customer customer : customers) {
                 myWriter.write(customer.getID() + "\n");
@@ -32,6 +34,14 @@ public class Files {
                 myWriter.write(customer.getPhone() + "\n");
                 myWriter.write(customer.getPassword() + "\n");
                 myWriter.write(customer.getNumberOfTrips() + "\n");
+
+                myWriter.write(customer.getPreferences().size() + "\n");
+
+                for (String preferences : customer.getPreferences()) {
+                    myWriter.write(preferences + "\n");
+                }
+
+                saveTickets(customer.getBookedTickets());
             }
 
             myWriter.close();
@@ -41,15 +51,36 @@ public class Files {
         }
     }
 
-    public static void loadCustomers(ArrayList<Customer> customers) {
+    public static int loadCustomers(ArrayList<Customer> customers) {
+        int size;
+
+        int lastTicketId = 0;
+
+        ArrayList<String> temp = new ArrayList<>();
+
         try {
             Scanner myReader = new Scanner(customerFile);
+
+            if (myReader.hasNextLine()) {
+                lastTicketId = Integer.parseInt(myReader.nextLine());
+            }
 
             while (myReader.hasNextLine()) {
                 customers.add(new Customer(Integer.parseInt(myReader.nextLine()), myReader.nextLine(),
                         myReader.nextLine(), myReader.nextLine(), myReader.nextLine()));
 
                 customers.get(customers.size() - 1).setNumberOfTrips(Integer.parseInt(myReader.nextLine()));
+
+                size = Integer.parseInt(myReader.nextLine());
+
+                for (int j = 0; j < size; ++j) {
+                    temp.add(myReader.nextLine());
+                }
+
+                customers.get(customers.size() - 1).setPreferences(temp);
+                temp.clear();
+
+                loadTickets(customers.get(customers.size() - 1).getBookedTickets());
             }
 
             myReader.close();
@@ -57,13 +88,15 @@ public class Files {
             System.out.println("Error: Can not load customer data.");
             System.out.println(e.getMessage());
         }
+
+        return lastTicketId;
     }
 
     public static void saveTrips(ArrayList<Trip> trips) {
         try {
             FileWriter myWriter = new FileWriter(tripFile);
 
-            for (Trip trip : trips) {  // number of customers needed
+            for (Trip trip : trips) {
                 if (trip instanceof GeneralTrip) {
                     myWriter.write("g\n");
                 } else if (trip instanceof CoupleTrip) {
@@ -186,11 +219,13 @@ public class Files {
         }
     }
 
-    public static void saveTickets(ArrayList<Ticket> tickets) { // price
-        try {
-            int bookedFeaturesSize = 0;
+    public static void saveTickets(ArrayList<Ticket> tickets) {
+        int bookedFeaturesSize = 0;
 
+        try {
             FileWriter myWriter = new FileWriter(ticketFile);
+
+            myWriter.write(tickets.size() + "\n");
 
             GoldTicket gold;
             SilverTicket silver;
@@ -206,6 +241,8 @@ public class Files {
                     myWriter.write(silver.getTRIP_ID() + "\n");
                     myWriter.write(silver.getNumberOfBookedSeats() + "\n");
                     myWriter.write(silver.getBookedFeatures() + "\n");
+
+                    myWriter.write(silver.getPrice() + "\n");
 
                     myWriter.write(silver.getBookedHotel() + "\n");
                     myWriter.write(silver.getBookedFlight() + "\n");
@@ -229,6 +266,8 @@ public class Files {
                         myWriter.write(bookedFeature + "\n");
                     }
 
+                    myWriter.write(gold.getPrice() + "\n");
+
                     myWriter.write(gold.getBookedHotel() + "\n");
                     myWriter.write(gold.getBookedFlight() + "\n");
                     myWriter.write(gold.getBookedCarRental() + "\n");
@@ -250,6 +289,8 @@ public class Files {
                     for (String bookedFeature : platinum.getBookedFeatures()) {
                         myWriter.write(bookedFeature + "\n");
                     }
+
+                    myWriter.write(platinum.getPrice() + "\n");
 
                     myWriter.write(platinum.getBookedHotel() + "\n");
                     myWriter.write(platinum.getBookedFlight() + "\n");
@@ -273,12 +314,18 @@ public class Files {
     public static void loadTickets(ArrayList<Ticket> tickets) {
         int size;
 
+        int numberOfBookedTickets = 0;
+
         ArrayList<String> temp = new ArrayList<>();
 
         try {
             Scanner myReader = new Scanner(ticketFile);
 
-            while (myReader.hasNextLine()) {
+            if (myReader.hasNextLine()) {
+                numberOfBookedTickets = Integer.parseInt(myReader.nextLine());
+            }
+
+            for (int i = 0; i < numberOfBookedTickets; ++i) {
                 if (myReader.nextLine().equals("s")) {
 
                     tickets.add(new SilverTicket(Integer.parseInt(myReader.nextLine()),
@@ -299,13 +346,15 @@ public class Files {
 
                 }
 
+                tickets.get(tickets.size() - 1).setPrice(Float.parseFloat(myReader.nextLine()));
+
                 tickets.get(tickets.size() - 1).setBookedHotel(myReader.nextLine());
                 tickets.get(tickets.size() - 1).setBookedFlight(myReader.nextLine());
                 tickets.get(tickets.size() - 1).setBookedCarRental(myReader.nextLine());
 
                 size = Integer.parseInt(myReader.nextLine());
 
-                for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; ++j) {
                     temp.add(myReader.nextLine());
                 }
 

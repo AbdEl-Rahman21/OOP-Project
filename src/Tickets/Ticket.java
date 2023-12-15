@@ -14,7 +14,7 @@ public abstract class Ticket {
 
     int numberOfBookedSeats;
 
-    ArrayList<String> activities = new ArrayList<>();
+    final ArrayList<String> activities = new ArrayList<>();
 
     public Ticket(int id, int tripId, int numberOfBookedSeats) {
         this.ID = id;
@@ -75,7 +75,7 @@ public abstract class Ticket {
     }
 
     public void setActivities(ArrayList<String> activities) {
-        this.activities = activities;
+        this.activities.addAll(activities);
     }
 
     public void addActivity(String activity) {

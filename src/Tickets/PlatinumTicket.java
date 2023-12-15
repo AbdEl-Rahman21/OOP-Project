@@ -1,7 +1,7 @@
 package Tickets;
 
 public class PlatinumTicket extends Ticket {
-    private final float VOUCHER = 0.1f; // Voucher discount
+    private final static float VOUCHER = 0.1f; // Voucher discount
 
     private String[] bookedFeatures; // Three booked features
 
@@ -10,6 +10,10 @@ public class PlatinumTicket extends Ticket {
 
         this.bookedFeatures = bookedFeatures;
         this.bookedCarRental = "VIP Car Rental"; // Free car rental
+    }
+
+    public static float getVOUCHER() {
+        return VOUCHER;
     }
 
     public String[] getBookedFeatures() {

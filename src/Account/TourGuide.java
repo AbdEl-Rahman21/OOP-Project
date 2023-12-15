@@ -102,7 +102,7 @@ public class TourGuide {
         System.out.println("Id: " + getID());
         System.out.println("Name: " + getName());
         System.out.println("Phone Number: " + getPhone());
-        System.out.println("Assigned trip: " + (getAssignedTrip() == -1 ? "Available" :getAssignedTrip()));
+        System.out.println("Assigned trip: " + (getAssignedTrip() == -1 ? "Available" : getAssignedTrip()));
         System.out.println("Last Month Salary: " + calculateSalary());
     }
 }

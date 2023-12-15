@@ -17,14 +17,15 @@ import java.io.IOException;
 import java.io.FileNotFoundException;
 
 public class Files {
-    public final static File customerFile = new File("customers.txt");
     public final static File tripFile = new File("trips.txt");
     public final static File ticketFile = new File("tickets.txt");
-    public final static File tourGuideFile = new File("tour guide.txt");
+    public final static File customerFile = new File("customers.txt");
+    public final static File tourGuideFile = new File("tourGuide.txt");
 
     public static void saveCustomers(int lastTicketId, ArrayList<Customer> customers) {
         try {
             FileWriter myWriter = new FileWriter(customerFile);
+            FileWriter ticketWriter = new FileWriter(ticketFile);
 
             myWriter.write(lastTicketId + "\n");
 
@@ -42,10 +43,11 @@ public class Files {
                     myWriter.write(preferences + "\n");
                 }
 
-                saveTickets(customer.getBookedTickets());
+                saveTickets(customer.getBookedTickets(), ticketWriter);
             }
 
             myWriter.close();
+            ticketWriter.close();
         } catch (IOException e) {
             System.out.println("Error: Can not save customer data.");
             System.out.println(e.getMessage());
@@ -61,6 +63,7 @@ public class Files {
 
         try {
             Scanner myReader = new Scanner(customerFile);
+            Scanner ticketReader = new Scanner(ticketFile);
 
             if (myReader.hasNextLine()) {
                 lastTicketId = Integer.parseInt(myReader.nextLine());
@@ -81,10 +84,11 @@ public class Files {
                 customers.get(customers.size() - 1).setPreferences(temp);
                 temp.clear();
 
-                loadTickets(customers.get(customers.size() - 1).getBookedTickets());
+                loadTickets(customers.get(customers.size() - 1).getBookedTickets(), ticketReader);
             }
 
             myReader.close();
+            ticketReader.close();
         } catch (FileNotFoundException e) {
             System.out.println("Error: Can not load customer data.");
             System.out.println(e.getMessage());
@@ -149,25 +153,29 @@ public class Files {
     public static void loadTrips(ArrayList<Trip> trips) {
         int size;
 
+        String tripType;
+
         ArrayList<String> temp = new ArrayList<>();
 
         try {
             Scanner myReader = new Scanner(tripFile);
 
             while (myReader.hasNextLine()) {
-                if (myReader.nextLine().equals("g")) {
+                tripType = myReader.nextLine();
+
+                if (tripType.equals("g")) {
 
                     trips.add(new GeneralTrip(Integer.parseInt(myReader.nextLine()), myReader.nextLine(),
                             Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
                             LocalDate.parse(myReader.nextLine()), LocalDate.parse(myReader.nextLine())));
 
-                } else if (myReader.nextLine().equals("c")) {
+                } else if (tripType.equals("c")) {
 
                     trips.add(new CoupleTrip(Integer.parseInt(myReader.nextLine()), myReader.nextLine(),
                             Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
                             LocalDate.parse(myReader.nextLine()), LocalDate.parse(myReader.nextLine())));
 
-                } else if (myReader.nextLine().equals("f")) {
+                } else if (tripType.equals("f")) {
 
                     trips.add(new FamilyTrip(Integer.parseInt(myReader.nextLine()), myReader.nextLine(),
                             Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
@@ -220,12 +228,8 @@ public class Files {
         }
     }
 
-    public static void saveTickets(ArrayList<Ticket> tickets) {
-        int bookedFeaturesSize = 0;
-
+    public static void saveTickets(ArrayList<Ticket> tickets, FileWriter myWriter) {
         try {
-            FileWriter myWriter = new FileWriter(ticketFile);
-
             myWriter.write(tickets.size() + "\n");
 
             GoldTicket gold;
@@ -304,88 +308,75 @@ public class Files {
                     }
                 }
             }
-
-            myWriter.close();
         } catch (IOException e) {
             System.out.println("Error: Can not save ticket data.");
             System.out.println(e.getMessage());
         }
     }
 
-    public static void loadTickets(ArrayList<Ticket> tickets) {
+    public static void loadTickets(ArrayList<Ticket> tickets, Scanner myReader) {
         int size;
+
+        String ticketType;
 
         int numberOfBookedTickets = 0;
 
         ArrayList<String> temp = new ArrayList<>();
 
-        try {
-            Scanner myReader = new Scanner(ticketFile);
+        if (myReader.hasNextLine()) {
+            numberOfBookedTickets = Integer.parseInt(myReader.nextLine());
+        }
 
-            if (myReader.hasNextLine()) {
-                numberOfBookedTickets = Integer.parseInt(myReader.nextLine());
+        for (int i = 0; i < numberOfBookedTickets; ++i) {
+            ticketType = myReader.nextLine();
+
+            switch (ticketType) {
+                case "s" -> tickets.add(new SilverTicket(Integer.parseInt(myReader.nextLine()),
+                        Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
+                        myReader.nextLine()));
+                case "g" -> tickets.add(new GoldTicket(Integer.parseInt(myReader.nextLine()),
+                        Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
+                        readArray(2, myReader)));
+                case "p" -> tickets.add(new PlatinumTicket(Integer.parseInt(myReader.nextLine()),
+                        Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
+                        readArray(3, myReader)));
             }
 
-            for (int i = 0; i < numberOfBookedTickets; ++i) {
-                if (myReader.nextLine().equals("s")) {
+            tickets.get(tickets.size() - 1).setPrice(Float.parseFloat(myReader.nextLine()));
 
-                    tickets.add(new SilverTicket(Integer.parseInt(myReader.nextLine()),
-                            Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
-                            myReader.nextLine()));
+            tickets.get(tickets.size() - 1).setBookedHotel(myReader.nextLine());
+            tickets.get(tickets.size() - 1).setBookedFlight(myReader.nextLine());
+            tickets.get(tickets.size() - 1).setBookedCarRental(myReader.nextLine());
 
-                } else if (myReader.nextLine().equals("g")) {
+            size = Integer.parseInt(myReader.nextLine());
 
-                    tickets.add(new PlatinumTicket(Integer.parseInt(myReader.nextLine()),
-                            Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
-                            readArray(2, myReader)));
-
-                } else if (myReader.nextLine().equals("p")) {
-
-                    tickets.add(new GoldTicket(Integer.parseInt(myReader.nextLine()),
-                            Integer.parseInt(myReader.nextLine()), Integer.parseInt(myReader.nextLine()),
-                            readArray(3, myReader)));
-
-                }
-
-                tickets.get(tickets.size() - 1).setPrice(Float.parseFloat(myReader.nextLine()));
-
-                tickets.get(tickets.size() - 1).setBookedHotel(myReader.nextLine());
-                tickets.get(tickets.size() - 1).setBookedFlight(myReader.nextLine());
-                tickets.get(tickets.size() - 1).setBookedCarRental(myReader.nextLine());
-
-                size = Integer.parseInt(myReader.nextLine());
-
-                for (int j = 0; j < size; ++j) {
-                    temp.add(myReader.nextLine());
-                }
-
-                tickets.get(tickets.size() - 1).setActivities(temp);
-                temp.clear();
+            for (int j = 0; j < size; ++j) {
+                temp.add(myReader.nextLine());
             }
 
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error: Can not load ticket data.");
-            System.out.println(e.getMessage());
+            tickets.get(tickets.size() - 1).setActivities(temp);
+            temp.clear();
         }
     }
 
-    public static void saveTourGuide( ArrayList<TourGuide> tour_guide) {
+    public static void saveTourGuide(ArrayList<TourGuide> tourGuides) {
         try {
             FileWriter myWriter = new FileWriter(tourGuideFile);
-            for (TourGuide guide : tour_guide) {
+
+            myWriter.write(TourGuide.getAvailableGuides() + "\n");
+
+            for (TourGuide guide : tourGuides) {
                 myWriter.write(guide.getID() + "\n");
                 myWriter.write(guide.getName() + "\n");
                 myWriter.write(guide.getPhone() + "\n");
-                myWriter.write(guide.getAvailableGuides() + "\n");
+
                 myWriter.write(guide.getAssignedTrip() + "\n");
+
                 myWriter.write(guide.getTripsMade().size() + "\n");
 
-                for (LocalDate trip : guide.getTripsMade())
-                {
+                for (LocalDate trip : guide.getTripsMade()) {
                     myWriter.write(trip + "\n");
                 }
-
             }
 
             myWriter.close();
@@ -395,19 +386,23 @@ public class Files {
         }
     }
 
-    public static void loadTourGuide(ArrayList<TourGuide> guide) {
+    public static void loadTourGuide(ArrayList<TourGuide> tourGuides) {
         int size;
-
 
         ArrayList<LocalDate> temp = new ArrayList<>();
 
         try {
             Scanner myReader = new Scanner(tourGuideFile);
 
+            if (myReader.hasNextLine()) {
+                TourGuide.setAvailableGuides(Integer.parseInt(myReader.nextLine()));
+            }
 
             while (myReader.hasNextLine()) {
-                guide.add(new TourGuide(Integer.parseInt(myReader.nextLine()), myReader.nextLine(), myReader.nextLine()));
+                tourGuides.add(new TourGuide(Integer.parseInt(myReader.nextLine()),
+                        myReader.nextLine(), myReader.nextLine()));
 
+                tourGuides.get(tourGuides.size() - 1).setAssignedTrip(Integer.parseInt(myReader.nextLine()));
 
                 size = Integer.parseInt(myReader.nextLine());
 
@@ -415,9 +410,8 @@ public class Files {
                     temp.add(LocalDate.parse(myReader.nextLine()));
                 }
 
-                guide.get(guide.size() - 1).setTripsMade(temp);
+                tourGuides.get(tourGuides.size() - 1).setTripsMade(temp);
                 temp.clear();
-
             }
 
             myReader.close();
@@ -425,9 +419,7 @@ public class Files {
             System.out.println("Error: Can not tour guide customer data.");
             System.out.println(e.getMessage());
         }
-
     }
-
 
     public static String[] readArray(int size, Scanner myReader) {
         String[] array = new String[size];

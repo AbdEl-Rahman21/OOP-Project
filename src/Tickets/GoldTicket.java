@@ -2,7 +2,7 @@ package Tickets;
 
 public class GoldTicket extends Ticket {
 
-    private final float VOUCHER = 0.05f; // Voucher discount
+    private final static float VOUCHER = 0.05f; // Voucher discount
 
     private String[] bookedFeatures; // Two booked features
 
@@ -10,6 +10,10 @@ public class GoldTicket extends Ticket {
         super(id, tripId, numberOfBookedSeats);
 
         this.bookedFeatures = bookedFeatures;
+    }
+
+    public static float getVOUCHER() {
+        return VOUCHER;
     }
 
     public String[] getBookedFeatures() {

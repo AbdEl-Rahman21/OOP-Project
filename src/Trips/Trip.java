@@ -59,11 +59,7 @@ public abstract class Trip {
     }
 
     public void setNumberOfSeats(int numberOfSeats) {
-        if (numberOfBookedSeats > numberOfSeats) {
-            System.out.println("New number of seats is less than the booked number of seats!");
-        } else {
-            this.numberOfSeats = numberOfSeats;
-        }
+        this.numberOfSeats = numberOfSeats;
     }
 
     public int getNumberOfBookedSeats() {
@@ -111,7 +107,7 @@ public abstract class Trip {
 
             if (hotels.contains(hotel)) {
                 System.out.println("Hotel already exists!");
-            } else {
+            } else if (!hotel.isEmpty()) {
                 hotels.add(hotel);
             }
 
@@ -144,7 +140,7 @@ public abstract class Trip {
 
             if (flights.contains(flight)) {
                 System.out.println("Flight already exists!");
-            } else {
+            } else if (!flight.isEmpty()) {
                 flights.add(flight);
             }
 
@@ -177,7 +173,7 @@ public abstract class Trip {
 
             if (carRentals.contains(carRental)) {
                 System.out.println("Car rental already exists!");
-            } else {
+            } else if (!carRental.isEmpty()) {
                 carRentals.add(carRental);
             }
 
@@ -210,7 +206,7 @@ public abstract class Trip {
 
             if (activities.contains(activity)) {
                 System.out.println("Activity already exists!");
-            } else {
+            } else if (!activity.isEmpty()) {
                 activities.add(activity);
             }
 
@@ -227,7 +223,7 @@ public abstract class Trip {
     }
 
     public boolean availableTrip(int bookedSeats) {
-        return bookedSeats <= (numberOfSeats - numberOfBookedSeats) && startDate.isBefore(LocalDate.now());
+        return bookedSeats <= (numberOfSeats - numberOfBookedSeats) && startDate.isAfter(LocalDate.now());
     }
 
     public abstract void displayTrip();

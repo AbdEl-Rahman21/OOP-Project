@@ -81,9 +81,9 @@ public abstract class Ticket {
     public void addActivity(String activity) {
         if (!activities.contains(activity)) {
             activities.add(activity);
+        } else {
+            System.out.println("Activity already booked!");
         }
-
-        System.out.println("Activity already booked!");
     }
 
     public void displayBookedActivities() {

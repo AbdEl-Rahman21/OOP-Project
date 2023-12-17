@@ -32,10 +32,7 @@ public class Main {
     }
 
     private static void run() {
-        Files.loadTrips(trips);
-        Files.loadTourGuide(tourGuides);
-
-        lastTicketId = Files.loadCustomers(customers);
+        loadData();
 
         do {
             if (welcomeUser() == 1) {
@@ -51,9 +48,7 @@ public class Main {
             handleCustomer();
         }
 
-        Files.saveTrips(trips);
-        Files.saveTourGuide(tourGuides);
-        Files.saveCustomers(lastTicketId, customers);
+        saveData();
     }
 
     private static int welcomeUser() {
@@ -773,6 +768,25 @@ public class Main {
     }
 
     // Utility Methods
+    private static void loadData() {
+        Files.loadTrips(trips);
+        Files.loadTourGuide(tourGuides);
+
+        lastTicketId = Files.loadCustomers(customers);
+
+        for (TourGuide tourGuide : tourGuides) {
+            if (tourGuide.getAssignedTrip() != -1) {
+                for (Trip trip : trips) {
+                    if (tourGuide.getAssignedTrip() == trip.getID() && trip.getEndDate().isBefore(LocalDate.now())) {
+                        tourGuide.finishTrip(trip.getEndDate());
+
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     private static int getNumber(int lowerBound, int upperBound) {
         int number = 0;
 
@@ -862,5 +876,11 @@ public class Main {
 
             System.out.println("Error: Entered date is before the current date");
         }
+    }
+
+    private static void saveData() {
+        Files.saveTrips(trips);
+        Files.saveTourGuide(tourGuides);
+        Files.saveCustomers(lastTicketId, customers);
     }
 }

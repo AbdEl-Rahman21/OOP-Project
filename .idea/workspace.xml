@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="fix bugs">
-      <change afterPath="$PROJECT_DIR$/tourGuide.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/customers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/customers.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Account/TourGuide.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Account/TourGuide.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Files.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tickets/GoldTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/GoldTicket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tickets/PlatinumTicket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/PlatinumTicket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tickets/Ticket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tickets/Ticket.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Trips/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Trips/Trip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tickets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tickets.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trips.txt" beforeDir="false" afterPath="$PROJECT_DIR$/trips.txt" afterDir="false" />
-    </list>
+    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="fix bugs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702595061994</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fix bugs">
+      <option name="closed" value="true" />
+      <created>1702679682009</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1702679682009</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

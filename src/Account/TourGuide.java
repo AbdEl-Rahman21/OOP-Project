@@ -80,7 +80,7 @@ public class TourGuide {
         tripsMade.add(tripDate);
 
         ++availableGuides;
-    } // when loading data
+    }
 
     public int calculateSalary() {
         int counter = 0;

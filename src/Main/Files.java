@@ -388,8 +388,11 @@ public class Files {
 
     public static void loadTourGuide(ArrayList<TourGuide> tourGuides) {
         int size;
+        int dateDifference;
 
         ArrayList<LocalDate> temp = new ArrayList<>();
+
+        LocalDate date;
 
         try {
             Scanner myReader = new Scanner(tourGuideFile);
@@ -407,7 +410,13 @@ public class Files {
                 size = Integer.parseInt(myReader.nextLine());
 
                 for (int j = 0; j < size; ++j) {
-                    temp.add(LocalDate.parse(myReader.nextLine()));
+                    date = LocalDate.parse(myReader.nextLine());
+
+                    dateDifference = LocalDate.now().getMonth().compareTo(date.getMonth());
+
+                    if (dateDifference == 1 || dateDifference == -11 || dateDifference == 0) {
+                        temp.add(date);
+                    }
                 }
 
                 tourGuides.get(tourGuides.size() - 1).setTripsMade(temp);

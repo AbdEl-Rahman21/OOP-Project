@@ -801,7 +801,12 @@ public class Main {
                         return number;
                     }
 
-                    System.out.print("Please, enter a valid option options [" + lowerBound + " - " + upperBound + "]: ");
+                    if (lowerBound == -1) {
+                        System.out.print("Please, enter a valid id: ");
+                    } else {
+                        System.out.print("Please, enter a valid option options [" + lowerBound + " - " +
+                                upperBound + "]: ");
+                    }
                 }
             } catch (InputMismatchException e) {
                 System.out.print("Please, enter a number: ");

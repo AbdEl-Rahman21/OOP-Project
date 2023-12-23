@@ -286,7 +286,7 @@ public class Files {
                 } else if (ticket instanceof PlatinumTicket) {
                     platinum = (PlatinumTicket) ticket;
 
-                    myWriter.write("p \n");
+                    myWriter.write("p\n");
 
                     myWriter.write(platinum.getID() + "\n");
                     myWriter.write(platinum.getTRIP_ID() + "\n");
@@ -407,6 +407,10 @@ public class Files {
                         myReader.nextLine(), myReader.nextLine()));
 
                 tourGuides.get(tourGuides.size() - 1).setAssignedTrip(Integer.parseInt(myReader.nextLine()));
+
+                if (tourGuides.get(tourGuides.size() - 1).getAssignedTrip() == -1) {
+                    TourGuide.setAvailableGuides(TourGuide.getAvailableGuides() - 1);
+                }
 
                 size = Integer.parseInt(myReader.nextLine());
 

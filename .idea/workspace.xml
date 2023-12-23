@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="fix bugs" />
+    <list default="true" id="888b67af-9663-4ace-8f8f-d27be886e70f" name="Changes" comment="fix bugs">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customers.txt" beforeDir="false" afterPath="$PROJECT_DIR$/customers.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main/Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Files.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tickets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tickets.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tourGuide.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tourGuide.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trips.txt" beforeDir="false" afterPath="$PROJECT_DIR$/trips.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,21 +40,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Abd El-Rahman Ali/IdeaProjects/OOP-Project",
-    "onboarding.tips.debug.path": "C:/Users/Abd El-Rahman Ali/IdeaProjects/OOP-Project/src/Main.java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Abd El-Rahman Ali/IdeaProjects/OOP-Project&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Abd El-Rahman Ali/IdeaProjects/OOP-Project/src/Main.java&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Abd El-Rahman Ali\IdeaProjects\OOP-Project" />

@@ -219,6 +219,7 @@ public class Files {
                 }
 
                 trips.get(trips.size() - 1).setActivities(temp);
+                temp.clear();
             }
 
             myReader.close();
